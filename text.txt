@@ -1,0 +1,37 @@
+ATTENTION CONTAINERS STL INTERDITS 
+
+ATTENTION RESPECTER LE NOMMAGE / ATTENTION AU DETAIL
+
+++++ https://www.cplusplus.com/ and https://cppreference.com/ ++++
+
+-> L'espace de nom sera toujours "ft" et vos conteneurs seront testés en utilisant ft::<container>.
+
+-> respecter la structure du conteneur de référence : s'il manque une partie de la forme canonique orthodoxe, ne l'implémentez pas.
+-> ne pas implémenter plus de fonctions publiques que celles proposées dans les conteneurs standards. Tout le reste doit être privé ou protégé. Chaque fonction/ variable publique doit être justifiée.
+
+-> utiliser std::allocator
+
+-> implémenter les containers : Vector, Map, Stack;
+
+    -> pour Vector : pas obliger de refaire vector<bool>;
+    -> pour Stack : doit utiliser Vector comme conteneur sous-jacent PAR DEFAUT
+
+-> implémenter si système d'itérateurs : itérateurs vector / itérateurs map;
+
+-> implémenter : itérateurs_traits, reverse_iterator, enable_if, is_integral, equal/lexicographical compare, std::pair, std::make_pair;
+
+-> implémenter :
+    => fonctions membres
+    => fonctions non-membres
+    => surcharges
+        >> pour surcharges non membres : le mot clé 'FRIEND' est autorisé mais doit être justifié
+
+
+
+-> avoir les fichiers : <containers>.hpp , main.cpp;
+
+-> comparer les résultats et le timing : avoir jusqu'à 20 fois plus lent
+
+-> faire :
+    -> un binaire avec uniquemet nos containers
+    -> un binaire avec les même test avec les containers STL
