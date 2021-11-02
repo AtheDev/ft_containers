@@ -78,7 +78,7 @@ namespace   ft
         /*
             Dans une définition de classe, utilisez le mot clé 'friend'
             et le nom d’une fonction non membre ou d’une autre classe
-            pour lui accorder l’accès aux membres privés et protégés de votre classe. Dans une définition de modèle, un paramètre de type peut être déclaré comme Friend.
+            pour lui accorder l’accès aux membres privés et protégés de votre classe.
         */
             template <class T1, class Container1>
             friend bool operator==(const stack<T1,Container1>& lhs, const stack<T1,Container1>& rhs);
