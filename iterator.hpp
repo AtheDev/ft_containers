@@ -70,6 +70,7 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
 	};
 
 
+/* Classe qui inverse le sens dans lequel un itérateur bidirectionnel ou à accès aléatoire parcourt une plage*/
     template<class T>
     class   reverse_iterator
     {
@@ -92,7 +93,7 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
             template<class Iter>
             reverse_iterator &  operator=(const reverse_iterator<Iter> & rev_it) {
 
-                if (this != *rev_it)
+                if (this != &rev_it)
                     _it = rev_it.base();
                 return *this;
             }
@@ -110,7 +111,7 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
 
             reverse_iterator    operator+(difference_type n) const {
 
-                reverse_iterator(_it - n);
+                return reverse_iterator(_it - n);
             }
 
             reverse_iterator &  operator++() {
@@ -134,7 +135,7 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
 
             reverse_iterator    operator-(difference_type n) const {
 
-                reverse_iterator(_it + n);
+                return reverse_iterator(_it + n);
             }
 
             reverse_iterator &  operator--() {
@@ -163,7 +164,7 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
 
             reference           operator[](difference_type n) const {
 
-                return *(*this + n);
+                return (_it[n]);
             } 
 
         protected:
