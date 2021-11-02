@@ -102,13 +102,7 @@ namespace   ft
     /* ********************************* */
 
     template<class T>
-    typename ft::iterator_traits<T>::difference_type    distance(T first, T last, std::random_access_iterator_tag) {
-
-        return (last - first);
-    }
-
-    template<class T>
-    typename ft::iterator_traits<T>::difference_type    distance(T first, T last, std::input_iterator_tag) {
+    typename ft::iterator_traits<T>::difference_type    distance(T first, T last) {
 
         typename ft::iterator_traits<T>::difference_type n = 0;
         for (; first != last; first++)
