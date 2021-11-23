@@ -13,9 +13,10 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <string>
 #include <iostream>
+
 #include "type_traits.hpp"
+#include "iterator.hpp"
 #include "random_access_iterator.hpp"
 #include "algorithm.hpp"
 
@@ -39,8 +40,6 @@ namespace   ft
             typedef ft::random_access_iterator<const T>         const_iterator;
             typedef ft::reverse_iterator<iterator>              reverse_iterator;
             typedef ft::reverse_iterator<const_iterator>        const_reverse_iterator;
-
-            //vector(): _v(0), _size(0), _capacity(0),  _alloc(Alloc()) {}
 
             explicit vector(const allocator_type & alloc = allocator_type()):
                 _v(0), _size(0), _capacity(0), _alloc(alloc) {}
@@ -69,7 +68,7 @@ namespace   ft
                     _alloc.construct(_v + i, *first);
             }
 
-            vector(const vector & x) {
+            vector(const vector<T, Alloc> & x) {
 
                 _alloc = x._alloc;
                 _capacity = x._capacity;
@@ -88,7 +87,7 @@ namespace   ft
                 _capacity = 0;
             }
 
-            vector &    operator=(const vector & x) {
+            vector<T, Alloc> &  operator=(const vector<T, Alloc> & x) {
 
                 if (this != &x)
                 {
@@ -140,7 +139,7 @@ namespace   ft
                 return const_reverse_iterator(end());
             }
 
-            reverse_iterator          rend() {
+            reverse_iterator        rend() {
 
                 return reverse_iterator(begin());
             }
@@ -186,7 +185,7 @@ namespace   ft
                     }
             }
             
-            // renvoie la taille de l'espace de stockage actuellement alloué pour le vector -> peut être >= à la size
+            // renvoie la taille de l'espace de stockage actuellement allouée pour le vector -> peut être >= à la size
             size_type               capacity() const {
 
                 return _capacity;
@@ -199,14 +198,17 @@ namespace   ft
 
             void                    reserve(size_type n) {
 
-                if (n >= max_size())
-                    throw std::length_error("vector: n >= this->max_size()");
-                T * ptrTmp = _v;
-                _v = _alloc.allocate(n);
-                for (size_t i = 0; i < _size; i++)
+                if (n > max_size())
+                    throw std::length_error("vector::reserve n > this->max_size()");
+                if (n < max_size())
+                {
+                    T * ptrTmp = _v;
+                    _v = _alloc.allocate(n);
+                    for (size_t i = 0; i < _size; i++)
                     _alloc.construct(_v + i, *(ptrTmp + i));
-                _alloc.deallocate(ptrTmp, _capacity);
-                _capacity = n;
+                    _alloc.deallocate(ptrTmp, _capacity);
+                    _capacity = n;
+                }
             }
 
         // Element access
@@ -223,14 +225,14 @@ namespace   ft
             reference               at(size_type n) {
 
                 if (n >= _size)
-                    throw std::out_of_range("vector: n >= this->size()");
+                    throw std::out_of_range("vector::at n >= this->size()");
                 return operator[](n);
             }
 
             const_reference         at(size_type n) const {
 
                 if (n >= _size)
-                    throw std::out_of_range("vector: n >= this->size()");
+                    throw std::out_of_range("vector::at n >= this->size()");
                 return operator[](n);
             }
 
@@ -297,7 +299,7 @@ namespace   ft
                 _size++;
             }
             
-            void                    pop_back() {
+            void                    pop_back(void) {
 
                 _size--;
                 _alloc.destroy(_v + _size);
@@ -395,7 +397,7 @@ namespace   ft
                 return tmp;
             }
 
-            void                    swap(vector & x) {
+            void                    swap(vector<T, Alloc> & x) {
 
                 pointer         tmp_v = x._v;
                 size_type       tmp_size = x._size;
@@ -413,7 +415,7 @@ namespace   ft
                 _v = tmp_v;
             }
 
-            void                    clear() {
+            void                    clear(void) {
 
                 for (size_t i = 0; i < _size; i++)
                     _alloc.destroy(_v + i);
@@ -428,15 +430,15 @@ namespace   ft
 
         private:
 
-            pointer         _v;         // représente le tableau contenant _size éléments de type T
-            size_type       _size;      // représente la taille de _v
-            size_type       _capacity;  // représente la capacité de _v
-            allocator_type  _alloc;     // représente l'objet Alloc à construire 
+            pointer         _v;
+            size_type       _size;
+            size_type       _capacity;
+            allocator_type  _alloc; 
     };
 
     // Non-member function overloads
     template <class T, class Alloc>
-    bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    bool    operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
         if (lhs.size() != rhs.size())
             return false;
@@ -444,31 +446,31 @@ namespace   ft
     }
 
     template <class T, class Alloc>
-    bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    bool    operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
         return (!(lhs == rhs));
     }
 
     template <class T, class Alloc>
-    bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    bool    operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
         return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     template <class T, class Alloc>
-    bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    bool    operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
         return (!(rhs < lhs));
     }
 
     template <class T, class Alloc>
-    bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    bool    operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
         return (rhs < lhs);
     }
 
     template <class T, class Alloc>
-    bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    bool    operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
         return (!(lhs < rhs));
     }
