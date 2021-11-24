@@ -1,29 +1,37 @@
-NAME = containers
+NAME		= ft_containers
+CXX 		= clang++
+CXXFLAGS	= -Wall -Werror -Wextra -std=c++98 -g
+RM 			= rm -rf
 
-SRCS = main.cpp test/test_algorithm.cpp
+SRCS	 	= main.cpp test/test_vector.cpp
+OBJS 		= $(SRCS:.cpp=.o)
 
-OBJS = $(SRCS:.cpp=.o)
+define run_ft
+	$(CXX) $(CXXFLAGS) -D NS=ft -o $@ ${SRCS}
+endef
 
-CXX = clang++
+define run_stl
+	$(CXX) $(CXXFLAGS) -D NS=std -o $@ ${SRCS}
+endef
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+all:	 	bin_ft bin_stl
 
-RM = rm -rf
+bin_stl: 	
+			@$(call run_stl)
 
-all: $(NAME)
+bin_ft: 	
+			@$(call run_ft)
 
-$(NAME): $(OBJS)
-			$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-
-$(OBJS): %.o: %.cpp
+$(OBJS): 	%.o: %.cpp
 			$(CXX) $(CXXFLAGS) -o $@ -c $<
 
-clean:
+clean:	
 			$(RM) $(OBJS)
 
-fclean: clean
-			$(RM) $(NAME)
 
-re: fclean all
+fclean:		clean
+			$(RM) ./bin_ft ./bin_stl
 
-.PHONY: all clean fclean re
+re:			fclean all
+
+.PHONY:		all clean fclean re
