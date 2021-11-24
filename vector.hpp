@@ -42,7 +42,7 @@ namespace   ft
             typedef ft::reverse_iterator<const_iterator>        const_reverse_iterator;
 
             explicit vector(const allocator_type & alloc = allocator_type()):
-                _v(0), _size(0), _capacity(0), _alloc(alloc) {}
+                _v(0), _size(0), _capacity(0), _alloc(alloc) {std::cout << "MON VECTOR" << std::endl;}
 
             explicit vector(size_type n, const value_type & val = value_type(),
                                 const allocator_type & alloc = allocator_type()) {
@@ -200,7 +200,7 @@ namespace   ft
 
                 if (n > max_size())
                     throw std::length_error("vector::reserve n > this->max_size()");
-                if (n < max_size())
+                if (n > capacity())
                 {
                     T * ptrTmp = _v;
                     _v = _alloc.allocate(n);
