@@ -92,8 +92,7 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
             template<class Iter>
             reverse_iterator &  operator=(const reverse_iterator<Iter> & rev_it) {
 
-                if (this != &rev_it)
-                    _it = rev_it.base();
+                _it = rev_it.base();
                 return *this;
             }
 
