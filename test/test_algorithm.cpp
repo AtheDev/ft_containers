@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main.hpp"
+#include "main.hpp"
 #include <algorithm>
 
 template <typename T>

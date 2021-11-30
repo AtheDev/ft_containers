@@ -11,57 +11,23 @@
 /* ************************************************************************** */
 
 
-#include "../main.hpp"
+#include "main.hpp"
 
 template<class T>
 void    printVector(T & vect, std::string str)
 {
-    //std::cout << "--------------------------------------" << std::endl;
     std::cout << "------------ " << str << " ------------" << std::endl;
-    //std::cout << "--------------------------------------" << std::endl;
     std::cout << "size     => " << vect.size() << std::endl;
     std::cout << "max_size => " << vect.max_size() << std::endl;
     std::cout << "capacity => " << vect.capacity() << std::endl;
-    std::cout << "addr     => " << &vect << std::endl;
-    std::cout << "--------------------------------------" << std::endl;
-}
-
-/*template<class T>
-void    printVector(const NS::vector<T> & vect, std::string str)
-{
-    //std::cout << "--------------------------------------" << std::endl;
-    std::cout << "------------ " << str << " ------------" << std::endl;
-    //std::cout << "--------------------------------------" << std::endl;
-    std::cout << "size     => " << vect.size() << std::endl;
-    std::cout << "max_size => " << vect.max_size() << std::endl;
-    std::cout << "capacity => " << vect.capacity() << std::endl;
-    std::cout << "addr     => " << &vect << std::endl;
-    std::cout << "--------------------------------------" << std::endl;
-}*/
-
-template<class T>
-void    printContent(NS::vector<T> & vect)
-{
-    //std::cout << "--------------------------------------" << std::endl;
-    std::cout << "------------ CONTENT -----------" << std::endl;
-    //std::cout << "--------------------------------------" << std::endl;
-    typename NS::vector<T>::iterator it = vect.begin();
-    if (!vect.empty())
-        for (; it != vect.end(); it++)
-            std::cout << *it << " ";
-    else
-        std::cout << "vector is empty !";
-    std::cout << std::endl;
     std::cout << "--------------------------------------" << std::endl;
 }
 
 template<class T>
-void    printContent(const NS::vector<T> & vect)
+void    printContent(T & vect)
 {
-    //std::cout << "--------------------------------------" << std::endl;
     std::cout << "------------ CONTENT -----------" << std::endl;
-    //std::cout << "--------------------------------------" << std::endl;
-    typename NS::vector<T>::const_iterator it = vect.begin();
+    typename T::const_iterator it = vect.begin();
     if (!vect.empty())
         for (; it != vect.end(); it++)
             std::cout << *it << " ";
@@ -126,33 +92,7 @@ void    _assign(void)
     printContent(vect5);
     std::cout << std::endl;
 
-    //vect2.reserve(70);
-    //std::vector<int>::const_iterator it = vect.begin();
-    //std::vector<int>::iterator itt = vect.begin();
-    //*itt = 6;
-    //for (; it != vect.end(); it++)
-    //    std::cout << *it << std::endl;
-
-    /*vect.resize(13);
-    std::cout << "size = " << vect.size() << std::endl;
-    std::cout << "max_size = " << vect.max_size() << std::endl;
-    std::cout << "capcity = " << vect.capacity() << std::endl;
-    std::cout << "addr = " << &vect << std::endl;
-    std::cout << "vect[0] = " << vect[0] << std::endl;
-    std::cout << "vect[1] = " << vect[1] << std::endl;
-    try {
-        std::cout << "vect.at(20) = " << vect.at(20) << std::endl;
-    }
-    catch (std::exception& e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    std::cout << "vect.front() = " << vect.front() << std::endl;
-    std::cout << "vect.back() = " << vect.back() << std::endl;
-*/
-
-    //for (size_t i = 0; i < vect2.capacity(); i++)
-    //    std::cout << vect2[i] << std::endl;
+    std::cin.get();
 }
 
 void    _at(void)
@@ -194,8 +134,9 @@ void    _at(void)
     {
         std::cout << e.what() << std::endl;
     }
-
     std::cout << std::endl;
+
+    std::cin.get();
 }
 
 void    _begin_end(void)
@@ -239,8 +180,9 @@ void    _begin_end(void)
     c_it = vect1.begin() + 5;
     std::cout << "*it = " << *it << std::endl;
     std::cout << "*c_it = " << *c_it << std::endl;
-
     std::cout << std::endl;
+
+    std::cin.get();
 }
 
 void    _capacity(void)
@@ -314,6 +256,8 @@ void    _capacity(void)
     std::cout << std::endl;
     std::cout << "vect3.capacity() = " << vect3.capacity() << std::endl;
     std::cout << std::endl << std::endl;
+
+    std::cin.get();
 }
 
 void    _clear(void)
@@ -358,6 +302,8 @@ void    _clear(void)
     std::cout << std::endl;
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
+
+    std::cin.get();
 }
 
 void    _empty(void)
@@ -388,6 +334,40 @@ void    _empty(void)
     std::cout << "vect3.empty() = " << vect3.empty() << std::endl;
     std::cout << "vect4.empty() = " << vect4.empty() << std::endl;
     std::cout << std::endl << std::endl;
+
+    std::cin.get();
+}
+
+void    _erase(void)
+{
+    std::cout << "===== TEST ERASE() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::vector<int> vect1;
+    for (int i = 0; i< 10; i++)
+        vect1.push_back(i);
+
+    std::cout << "==> Before erase() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+
+    vect1.erase(vect1.begin() + 5);
+    std::cout << "==> After erase(begin() + 5) :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+
+    vect1.erase(vect1.begin() + 2, vect1.begin() + 7);
+    std::cout << "==> After erase(begin() + 2, begin() + 7) :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);
+    std::cout << std::endl;
+
+    std::cin.get();
 }
 
 void    _front_back(void)
@@ -432,8 +412,9 @@ void    _front_back(void)
     std::cout << "==> front() -= back() :" << std::endl;
     vect1.front() -= vect1.back();
     std::cout << "new vect1.front() = " << vect1.front() << std::endl;
+    std::cout << std::endl;
 
-    std::cout << std::endl;   
+    std::cin.get(); 
 }
 
 void    _get_allocator(void)
@@ -448,7 +429,226 @@ void    _get_allocator(void)
     std::cout << "test = " << *test << std::endl;
     alloc.destroy(test);
     alloc.deallocate(test, 1);
-    std::cout << std::endl;   
+    std::cout << std::endl;
+
+    std::cin.get();
+}
+
+void    _insert(void)
+{
+    std::cout << "===== TEST INSERT() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::vector<int> vect1(5, 21);
+    NS::vector<int> vect2(10, 42);
+
+    std::cout << "==> Before insert() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+    printContent(vect2);  
+    std::cout << std::endl;
+
+    NS::vector<int>::iterator   it = vect1.begin();
+    it = vect1.insert(it, 55);
+    std::cout << "==> After it = insert(vect1.begin() , 55)" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);
+    std::cout << std::endl;
+
+    vect1.insert(it + 3, 4, 99);
+    std::cout << "==> After insert(it + 3, 4, 99) :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+
+    vect1.insert(vect1.begin() + 5, vect2.begin(), vect2.end());
+    std::cout << "==> After insert(vect1.begin() + 5, vect2.begin(), vect2.end()) :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+
+    int array[] = {100, 200, 300};
+    vect1.insert(vect1.begin(), array, array + 3);
+    std::cout << "==> After insert(vect1.begin(), array, array + 3 :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+
+    std::cin.get();
+}
+
+void    _max_size(void)
+{
+    std::cout << "===== TEST MAX_SIZE() =====" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "==> vector<int>.max_size() :" << std::endl;
+    NS::vector<int> vect1;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+
+    std::cout << "==> vector<bool>.max_size() :" << std::endl;
+    NS::vector<char> vect2;
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+
+    std::cout << "==> vector<std::string>.max_size() :" << std::endl;
+    NS::vector<std::string> vect3;
+    printVector(vect3, "vect 3");
+    std::cout << std::endl;
+
+    std::cout << "==> vector<test<int> >.max_size() :" << std::endl;
+    NS::vector<test<int> > vect4;
+    printVector(vect4, "vect 4");
+    std::cout << std::endl;
+
+    std::cin.get();
+}
+
+void    _operator_assignation(void)
+{
+    std::cout << "===== TEST OPEARTOR =() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::vector<int> vect1(5, 21);
+    NS::vector<int> vect2(10, 42);
+    std::cout << "==> Before operator=() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+    printContent(vect2);  
+    std::cout << std::endl;
+
+    vect1 = vect2;
+    vect2 = NS::vector<int>();
+    std::cout << "==> After operator=() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);  
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+    printContent(vect2);  
+    std::cout << std::endl;
+
+    std::cin.get();
+}
+
+void    _operator_access(void)
+{
+    std::cout << "===== TEST OPEARTOR []() =====" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "==> test with reference :" << std::endl;
+    NS::vector<int> vect1(10);
+    for (size_t i = 0; i < vect1.size(); i++)
+        vect1[i] = i * 2;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    for (size_t i = 0; i < vect1.size(); i++)
+        std::cout << "vect1[" << i << "] = " << vect1[i] << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "==> test with const_reference :" << std::endl;
+    const NS::vector<int> vect2(vect1.rbegin(), vect1.rend());
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+    for (size_t i = 0; i < vect2.size(); i++)
+        std::cout << "vect2[" << i << "] = " << vect2[i] << std::endl;
+    std::cout << std::endl;
+
+    std::cin.get();
+}
+
+void    _pop_back(void)
+{
+    std::cout << "===== TEST POP_BACK() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::vector<int> vect1;
+    NS::vector<int> vect2(20, 2);
+    NS::vector<int> vect3(30, 3);
+
+    std::cout << "==> Before pop_back() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");  
+    std::cout << std::endl;
+    printVector(vect3, "vect 3");
+    std::cout << std::endl << std::endl;
+
+    for (int i = 0; i < 100; i++)
+        vect1.push_back(i);
+    for (int i = 0; i < 5; i++)
+        vect3.push_back(i);
+    for (int i = 0; i < 50; i++)
+        vect1.pop_back();
+    for (int i = 0; i < 10; i++) {
+        vect2.pop_back();
+        vect3.pop_back();
+    }
+
+    std::cout << "==> After pop_back() :" << std::endl; 
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");  
+    std::cout << std::endl;
+    printVector(vect3, "vect 3");
+    std::cout << std::endl << std::endl;
+
+    std::cin.get();
+}
+
+void    _push_back(void)
+{
+    std::cout << "===== TEST PUSH_BACK() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::vector<int> vect1;
+    NS::vector<int> vect2(20, 2);
+    NS::vector<int> vect3(30, 3);
+    NS::vector<int> vect4(vect3);
+
+    std::cout << "==> Before push_back() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");  
+    std::cout << std::endl;
+    printVector(vect3, "vect 3");
+    std::cout << std::endl;
+    printVector(vect4, "vect 4");
+    std::cout << std::endl << std::endl;
+
+    for (int i = 0; i < 10000; i++)
+    {
+        vect1.push_back(i);
+        vect4.push_back(i);
+    }
+    vect2.push_back(42);
+    vect3.push_back(42);
+
+    std::cout << "==> After push_back() :" << std::endl; 
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printVector(vect2, "vect 2");  
+    std::cout << std::endl;
+    printVector(vect3, "vect 3");
+    std::cout << std::endl;
+    printVector(vect4, "vect 4");
+    std::cout << std::endl << std::endl;
+
+    std::cin.get();
 }
 
 void    _rbegin_rend(void)
@@ -492,8 +692,9 @@ void    _rbegin_rend(void)
     c_r_it = vect1.rbegin() + 5;
     std::cout << "*r_it = " << *r_it << std::endl;
     std::cout << "*c_r_it = " << *c_r_it << std::endl;
-
     std::cout << std::endl;
+
+    std::cin.get();
 }
 
 void    _reserve(void)
@@ -545,82 +746,39 @@ void    _reserve(void)
     std::cout << std::endl;
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
+
+    std::cin.get();
 }
 
-void    _push_back(void)
+void    _resize(void)
 {
-    std::cout << "===== TEST PUSH_BACK() =====" << std::endl;
+    std::cout << "===== TEST RESIZE() =====" << std::endl;
     std::cout << std::endl;
 
     NS::vector<int> vect1;
-    NS::vector<int> vect2(20, 2);
-    NS::vector<int> vect3(30, 3);
-    NS::vector<int> vect4(vect3);
-
-    std::cout << "==> Before push_back() :" << std::endl;
-    printVector(vect1, "vect 1");
-    std::cout << std::endl;
-    printVector(vect2, "vect 2");  
-    std::cout << std::endl;
-    printVector(vect3, "vect 3");
-    std::cout << std::endl;
-    printVector(vect4, "vect 4");
-    std::cout << std::endl << std::endl;
-
-    for (int i = 0; i < 10000; i++)
-    {
+    for (int i = 0; i < 10; i++)
         vect1.push_back(i);
-        vect4.push_back(i);
-    }
-    vect2.push_back(42);
-    vect3.push_back(42);
 
-    std::cout << "==> After push_back() :" << std::endl; 
+    std::cout << "==> Before resize() :" << std::endl;
     printVector(vect1, "vect 1");
     std::cout << std::endl;
-    printVector(vect2, "vect 2");  
-    std::cout << std::endl;
-    printVector(vect3, "vect 3");
-    std::cout << std::endl;
-    printVector(vect4, "vect 4");
-    std::cout << std::endl << std::endl;
-}
 
-void    _pop_back(void)
-{
-    std::cout << "===== TEST POP_BACK() =====" << std::endl;
-    std::cout << std::endl;
-
-    NS::vector<int> vect1;
-    NS::vector<int> vect2(20, 2);
-    NS::vector<int> vect3(30, 3);
-
-    std::cout << "==> Before pop_back() :" << std::endl;
+    vect1.resize(3);
+    std::cout << "==> After resize(3) :" << std::endl;
     printVector(vect1, "vect 1");
     std::cout << std::endl;
-    printVector(vect2, "vect 2");  
-    std::cout << std::endl;
-    printVector(vect3, "vect 3");
-    std::cout << std::endl << std::endl;
 
-    for (int i = 0; i < 100; i++)
-        vect1.push_back(i);
-    for (int i = 0; i < 5; i++)
-        vect3.push_back(i);
-    for (int i = 0; i < 50; i++)
-        vect1.pop_back();
-    for (int i = 0; i < 10; i++) {
-        vect2.pop_back();
-        vect3.pop_back();
-    }
-
-    std::cout << "==> After pop_back() :" << std::endl; 
+    vect1.resize(18);
+    std::cout << "==> After resize(18) :" << std::endl;
     printVector(vect1, "vect 1");
     std::cout << std::endl;
-    printVector(vect2, "vect 2");  
+
+    vect1.resize(100000);
+    std::cout << "==> After resize(100000) :" << std::endl;
+    printVector(vect1, "vect 1");
     std::cout << std::endl;
-    printVector(vect3, "vect 3");
-    std::cout << std::endl << std::endl;
+
+    std::cin.get();
 }
 
 void    _size(void)
@@ -670,6 +828,57 @@ void    _size(void)
     std::cout << std::endl;
     std::cout << "vect3.size() = " << vect3.size() << std::endl;
     std::cout << std::endl << std::endl;
+
+    std::cin.get();
+}
+
+void    _swap(void)
+{
+    std::cout << "===== TEST SWAP() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::vector<int> vect1(5, 21);
+    NS::vector<int> vect2(10, 42);
+    NS::vector<int>::const_iterator it1 = vect1.begin();
+    NS::vector<int>::const_iterator it2 = vect2.begin();
+
+    std::cout << "==> Before swap() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);
+    std::cout << std::endl;
+
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+    printContent(vect2);
+    std::cout << std::endl;
+
+    std::cout << "==> *it1 = " << *it1 << std::endl;
+    std::cout << "==> *it2 = " << *it2 << std::endl;
+    std::cout << std::endl;
+
+    vect1.swap(vect2);
+    std::cout << "==> After swap() :" << std::endl;
+    printVector(vect1, "vect 1");
+    std::cout << std::endl;
+    printContent(vect1);
+    std::cout << std::endl;
+
+    printVector(vect2, "vect 2");
+    std::cout << std::endl;
+    printContent(vect2);
+    std::cout << std::endl;
+
+    std::cout << "==> *it1 = " << *it1 << std::endl;
+    std::cout << "==> *it2 = " << *it2 << std::endl;
+    std::cout << std::endl;
+
+    std::cout << std::boolalpha;
+	std::cout << "Iterator validity:" << std::endl;
+	std::cout << "it1 == vect2.begin() : " << (it1 == vect2.begin()) << std::endl;
+	std::cout << "it2 == vect1.begin() : " << (it2 == vect1.begin()) << std::endl;
+
+    std::cin.get();
 }
 
 void    _relational_operators(void)
@@ -728,31 +937,35 @@ void    _relational_operators(void)
         std::cout << "vect3 <= vect2" << std::endl;
     if (vect3 >= vect2)  
         std::cout << "vect3 >= vect2" << std::endl;
-        std::cout << std::endl;
+    std::cout << std::endl;
+
+    std::cin.get();
 }
 
 void    testVector(void)
 {
-//    _assign();
-//    _at();
-//    _begin_end();
-//    _capacity();
-//    _clear();
-//    _empty();
-/*    _erase();*/
-//    _front_back();
-//    _get_allocator();
-/*    _insert();
-    _maxSize();
-    _operatorAssignation();
-    _operatorAccess();*/
-//    _pop_back();
-//    _push_back();
-//    _rbegin_rend();
-//    _reserve();
-/*    _resize();*/
-//    _size();
-    /*_swap();*/
-//    _relational_operators();
-    /*_swapNonMemeber();*/
+    /**********************************/
+    /*    AJOUTER TEST CONSTRUCTOR    */
+    /**********************************/
+    _assign();
+    _at();
+    _begin_end();
+    _capacity();
+    _clear();
+    _empty();
+    _erase();
+    _front_back();
+    _get_allocator();
+    _insert();
+    _max_size();
+    _operator_assignation();
+    _operator_access();
+    _pop_back();
+    _push_back();
+    _rbegin_rend();
+    _reserve();
+    _resize();
+    _size();
+    _swap();
+    _relational_operators();
 }
