@@ -1,0 +1,64 @@
+vector :
+
+    -> vérifier les fonctions présentes => ATTENTION pas plus de fonctions publiques que nécessaire 
+    -> indentation
+    -> les includes nécessaire
+    -> le header
+    -> les commentaires
+    -> renommer les fichiers si nécessaire -> (vector.hpp)
+    -> vérifier le système d'itérateurs ==> VOIR SI ON AJOUTE DES OVERLAOD EN PLUS
+    -> faire test constructor
+
+
+
+stack :
+
+    -> vérifier les fonctions présentes => ATTENTION pas plus de fonctions publiques que nécessaire
+    -> indentation
+    -> les includes nécessaire
+    -> le header
+    -> les commentaires
+    -> renommer les fichiers si nécessaire -> (stack.hpp)
+
+
+map :
+
+    -> vérifier les fonctions présentes => ATTENTION pas plus de fonctions publiques que nécessaire
+    -> indentation
+    -> les includes nécessaire
+    -> le header
+    -> les commentaires
+    -> renommer les fichiers si nécessaire
+    -> vérifier le système d'itérateurs -> (map.hpp)
+
+
+
+-> vérifier les espaces de nom sera toujours [ft]
+-> conteneurs seront testés en utilisant ft::<container>.
+
+-> check reverse_iterator = + / -
+
+-> check : iterateurs_traits + reverse_iterator -> (nom du fichier, les includes, indentation, commentaire)
+
+-> check : enable_if + is_integral -> (nom du fichier, les includes, indentation, commentaire)
+
+-> check : equal + lexicographical compare -> (nom du fichier, les includes, indentation, commentaire)
+
+-> check : std::pair + std::make_pair -> (nom du fichier, les includes, indentation, commentaire)
+
+
+ATTENTION pour surcharges non membres : le mot clé 'FRIEND' est autorisé mais doit être justifié
+
+
+
+-> avoir les fichiers : main.cpp;
+
+
+
+http://www.lirmm.fr/~ducour/Doc-objets/ISO+IEC+14882-1998.pdf
+https://www.programiz.com/dsa/red-black-tree
+https://cs.lmu.edu/~ray/notes/redblacktrees/
+https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
+https://fr.wikipedia.org/wiki/Arbre_bicolore
+
+https://code.woboq.org/gcc/libstdc++-v3/src/c++98/tree.cc.html#_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_
