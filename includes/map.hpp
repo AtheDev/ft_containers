@@ -467,7 +467,7 @@ namespace   ft
 
             allocator_type  get_allocator() const {
 
-                return _tree.get_allocator();
+                return allocator_type();
             }
 
     template<class _Key, class _T, class _Compare, class _Alloc>
