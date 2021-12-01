@@ -806,7 +806,7 @@ void    _size(void)
     for (int i = 0; i < 5; i++)
         vect3.push_back(i);
     
-    std::cout << "==> After push_back() and Before pop_back : size = " << std::endl;
+    std::cout << "==> After push_back() and Before pop_back() : size = " << std::endl;
     std::cout << "vect1.size() = " << vect1.size() << std::endl;
     std::cout << std::endl;
     std::cout << "vect2.size() = " << vect2.size() << std::endl;
