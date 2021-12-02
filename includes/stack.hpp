@@ -30,8 +30,6 @@ namespace   ft
 
             explicit stack(const container_type& ctnr = container_type()): c(ctnr) {}
 
-            ~stack() {}
-
             stack &     operator=(const stack & other) {
 
                 if (this != &other)
@@ -39,35 +37,17 @@ namespace   ft
                 return *this;
             }
 
-            bool                empty() const {
+            bool                empty() const                   { return c.empty(); }
 
-                return c.empty();
-            }
+            size_type           size() const                    { return c.size(); }
 
-            size_type           size() const {
+            reference           top()                           { return c.back(); }
 
-                return c.size();
-            }
+            const_reference     top() const                     { return c.back(); }
 
-            reference           top() {
+            void                push(const value_type & val)    { c.push_back(val); }
 
-                return c.back();
-            }
-
-            const_reference     top() const {
-
-                return c.back();
-            }
-
-            void                push(const value_type & val) {
-
-                c.push_back(val);
-            }
-
-            void                pop() {
-
-                c.pop_back();
-            }
+            void                pop()                           { c.pop_back(); }
 
         protected:
 
@@ -75,11 +55,6 @@ namespace   ft
 
         private:
 
-        /*
-            Dans une définition de classe, utilisez le mot clé 'friend'
-            et le nom d’une fonction non membre ou d’une autre classe
-            pour lui accorder l’accès aux membres privés et protégés de votre classe.
-        */
             template <class T1, class Container1>
             friend bool operator==(const stack<T1,Container1>& lhs, const stack<T1,Container1>& rhs);
 
