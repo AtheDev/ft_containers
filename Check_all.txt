@@ -1,3 +1,4 @@
+/***************** OK ******************
 vector :
 
     -> vérifier les fonctions présentes => ATTENTION pas plus de fonctions publiques que nécessaire 
@@ -8,9 +9,10 @@ vector :
     -> renommer les fichiers si nécessaire -> (vector.hpp)
     -> vérifier le système d'itérateurs ==> VOIR SI ON AJOUTE DES OVERLAOD EN PLUS
     -> faire test constructor
+****************************************/
 
 
-
+/***************** OK ******************
 stack :
 
     -> vérifier les fonctions présentes => ATTENTION pas plus de fonctions publiques que nécessaire
@@ -19,7 +21,7 @@ stack :
     -> le header
     -> les commentaires
     -> renommer les fichiers si nécessaire -> (stack.hpp)
-
+****************************************/
 
 map :
 
@@ -30,6 +32,10 @@ map :
     -> les commentaires
     -> renommer les fichiers si nécessaire
     -> vérifier le système d'itérateurs -> (map.hpp)
+    ##################################################################################
+    ##### Reverifier la partie value_compare + typedef + suprimer commentaires########
+    #####                           RED_BLACK_TREE                               #####
+    ##################################################################################
 
 
 
