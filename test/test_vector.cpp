@@ -14,7 +14,7 @@
 #include "main.hpp"
 
 template<class T>
-void    printVector(T & vect, std::string str)
+static void    printVector(T & vect, std::string str)
 {
     std::cout << "------------ " << str << " ------------" << std::endl;
     std::cout << "size     => " << vect.size() << std::endl;
@@ -24,7 +24,7 @@ void    printVector(T & vect, std::string str)
 }
 
 template<class T>
-void    printContent(T & vect)
+static void    printContent(T & vect)
 {
     std::cout << "------------ CONTENT -----------" << std::endl;
     typename T::const_iterator it = vect.begin();
@@ -37,7 +37,63 @@ void    printContent(T & vect)
     std::cout << "--------------------------------------" << std::endl;
 }
 
-void    _assign(void)
+static void     _constructor(void)
+{
+    std::cout << "===== TEST CONSTRUCTOR() =====" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "vect1 default constructor:" << std::endl;
+    NS::vector<int> vect1;
+
+    for (int i = 0; i < 10; i++)
+        vect1.push_back(i * 2);
+    std::cout << std::endl;
+
+    std::cout << "vect2 fill constructor:" << std::endl;
+    NS::vector<int> vect2(5, 42);
+
+    std::cout << "vect3 range constructor:" << std::endl;
+    NS::vector<int> vect3(vect1.begin() + 2, vect1.end() - 3);
+    for (int i = 0; i < 15; i++)
+        vect1.push_back(i + i * 3);
+    std::cout << std::endl;
+
+    std::cout << "vect4 copy constructor:" << std::endl;
+    NS::vector<int> vect4(vect1);
+    std::cout << "vect1 :" << std::endl;
+    printContent(vect1);
+    std::cout << std::endl;
+    std::cout << "vect2 :" << std::endl;
+    printContent(vect2);
+    std::cout << std::endl;
+    std::cout << "vect3 :" << std::endl;
+    printContent(vect3);
+    std::cout << std::endl;
+    std::cout << "vect4 :" << std::endl;
+    printContent(vect4);
+    std::cout << std::endl;
+
+    vect4 = vect3;
+    vect3 = vect1;
+    vect1 = NS::vector<int>();
+    vect2.clear();
+    std::cout << "vect1 :" << std::endl;
+    printContent(vect1);
+    std::cout << std::endl;
+    std::cout << "vect2 :" << std::endl;
+    printContent(vect2);
+    std::cout << std::endl;
+    std::cout << "vect3 :" << std::endl;
+    printContent(vect3);
+    std::cout << std::endl;
+    std::cout << "vect4 :" << std::endl;
+    printContent(vect4);
+    std::cout << std::endl << std::endl;
+
+    //std::cin.get();
+}
+
+static void    _assign(void)
 {
     std::cout << "===== TEST ASSIGN() =====" << std::endl;
     std::cout << std::endl;
@@ -92,10 +148,10 @@ void    _assign(void)
     printContent(vect5);
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _at(void)
+static void    _at(void)
 {
     std::cout << "===== TEST AT() =====" << std::endl;
     std::cout << std::endl;
@@ -136,10 +192,10 @@ void    _at(void)
     }
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _begin_end(void)
+static void    _begin_end(void)
 {
     std::cout << "===== TEST BEGIN() / END() =====" << std::endl;
     std::cout << std::endl;
@@ -182,10 +238,10 @@ void    _begin_end(void)
     std::cout << "*c_it = " << *c_it << std::endl;
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _capacity(void)
+static void    _capacity(void)
 {
     std::cout << "===== TEST CAPCITY() =====" << std::endl;
     std::cout << std::endl;
@@ -257,10 +313,10 @@ void    _capacity(void)
     std::cout << "vect3.capacity() = " << vect3.capacity() << std::endl;
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _clear(void)
+static void    _clear(void)
 {
     std::cout << "===== TEST CLEAR() =====" << std::endl;
     std::cout << std::endl;
@@ -303,10 +359,10 @@ void    _clear(void)
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _empty(void)
+static void    _empty(void)
 {
     std::cout << "===== TEST EMPTY() =====" << std::endl;
     std::cout << std::endl;
@@ -335,10 +391,10 @@ void    _empty(void)
     std::cout << "vect4.empty() = " << vect4.empty() << std::endl;
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _erase(void)
+static void    _erase(void)
 {
     std::cout << "===== TEST ERASE() =====" << std::endl;
     std::cout << std::endl;
@@ -367,10 +423,10 @@ void    _erase(void)
     printContent(vect1);
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _front_back(void)
+static void    _front_back(void)
 {
     std::cout << "===== TEST FRONT() / BACK() =====" << std::endl;
     std::cout << std::endl;
@@ -414,10 +470,10 @@ void    _front_back(void)
     std::cout << "new vect1.front() = " << vect1.front() << std::endl;
     std::cout << std::endl;
 
-    std::cin.get(); 
+    //std::cin.get(); 
 }
 
-void    _get_allocator(void)
+static void    _get_allocator(void)
 {
     std::cout << "===== TEST GET_ALLOCATOR() =====" << std::endl;
     std::cout << std::endl;
@@ -431,10 +487,10 @@ void    _get_allocator(void)
     alloc.deallocate(test, 1);
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _insert(void)
+static void    _insert(void)
 {
     std::cout << "===== TEST INSERT() =====" << std::endl;
     std::cout << std::endl;
@@ -482,10 +538,10 @@ void    _insert(void)
     printContent(vect1);  
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _max_size(void)
+static void    _max_size(void)
 {
     std::cout << "===== TEST MAX_SIZE() =====" << std::endl;
     std::cout << std::endl;
@@ -510,10 +566,10 @@ void    _max_size(void)
     printVector(vect4, "vect 4");
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _operator_assignation(void)
+static void    _operator_assignation(void)
 {
     std::cout << "===== TEST OPEARTOR =() =====" << std::endl;
     std::cout << std::endl;
@@ -542,10 +598,10 @@ void    _operator_assignation(void)
     printContent(vect2);  
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _operator_access(void)
+static void    _operator_access(void)
 {
     std::cout << "===== TEST OPEARTOR []() =====" << std::endl;
     std::cout << std::endl;
@@ -568,10 +624,10 @@ void    _operator_access(void)
         std::cout << "vect2[" << i << "] = " << vect2[i] << std::endl;
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _pop_back(void)
+static void    _pop_back(void)
 {
     std::cout << "===== TEST POP_BACK() =====" << std::endl;
     std::cout << std::endl;
@@ -607,10 +663,10 @@ void    _pop_back(void)
     printVector(vect3, "vect 3");
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _push_back(void)
+static void    _push_back(void)
 {
     std::cout << "===== TEST PUSH_BACK() =====" << std::endl;
     std::cout << std::endl;
@@ -648,10 +704,10 @@ void    _push_back(void)
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _rbegin_rend(void)
+static void    _rbegin_rend(void)
 {
     std::cout << "===== TEST RBEGIN() / REND() =====" << std::endl;
     std::cout << std::endl;
@@ -694,10 +750,10 @@ void    _rbegin_rend(void)
     std::cout << "*c_r_it = " << *c_r_it << std::endl;
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _reserve(void)
+static void    _reserve(void)
 {
     std::cout << "===== TEST RESERVE() =====" << std::endl;
     std::cout << std::endl;
@@ -747,10 +803,10 @@ void    _reserve(void)
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _resize(void)
+static void    _resize(void)
 {
     std::cout << "===== TEST RESIZE() =====" << std::endl;
     std::cout << std::endl;
@@ -778,10 +834,10 @@ void    _resize(void)
     printVector(vect1, "vect 1");
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _size(void)
+static void    _size(void)
 {
     std::cout << "===== TEST SIZE() =====" << std::endl;
     std::cout << std::endl;
@@ -829,10 +885,10 @@ void    _size(void)
     std::cout << "vect3.size() = " << vect3.size() << std::endl;
     std::cout << std::endl << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _swap(void)
+static void    _swap(void)
 {
     std::cout << "===== TEST SWAP() =====" << std::endl;
     std::cout << std::endl;
@@ -878,10 +934,10 @@ void    _swap(void)
 	std::cout << "it1 == vect2.begin() : " << (it1 == vect2.begin()) << std::endl;
 	std::cout << "it2 == vect1.begin() : " << (it2 == vect1.begin()) << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
-void    _relational_operators(void)
+static void    _relational_operators(void)
 {
     std::cout << "===== TEST RELATIONAL OPERATORS =====" << std::endl;
     std::cout << std::endl;
@@ -939,14 +995,12 @@ void    _relational_operators(void)
         std::cout << "vect3 >= vect2" << std::endl;
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
 void    testVector(void)
 {
-    /**********************************/
-    /*    AJOUTER TEST CONSTRUCTOR    */
-    /**********************************/
+    _constructor();
     _assign();
     _at();
     _begin_end();
