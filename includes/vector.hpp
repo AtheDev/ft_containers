@@ -109,60 +109,28 @@ namespace   ft
 
         // Iterator
 
-            iterator                begin() {
+            iterator                begin()         { return iterator(_v); }
 
-                return iterator(_v);
-            }
+            const_iterator          begin() const   { return const_iterator(_v); }
 
-            const_iterator          begin() const {
+            iterator                end()           { return iterator(_v + _size); }
 
-                return const_iterator(_v);
-            }
+            const_iterator          end() const     { return const_iterator(_v + _size); }
 
-            iterator                end() {
+            reverse_iterator        rbegin()        { return reverse_iterator(end()); }
 
-                return iterator(_v + _size);
-            }
+            const_reverse_iterator  rbegin() const  { return const_reverse_iterator(end()); }
 
-            const_iterator          end() const {
+            reverse_iterator        rend()          { return reverse_iterator(begin()); }
 
-                return const_iterator(_v + _size);
-            }
-
-            reverse_iterator        rbegin() {
-
-                return reverse_iterator(end());
-            }
-
-            const_reverse_iterator  rbegin() const {
-
-                return const_reverse_iterator(end());
-            }
-
-            reverse_iterator        rend() {
-
-                return reverse_iterator(begin());
-            }
-
-            const_reverse_iterator  rend() const {
-
-                return const_reverse_iterator(begin());
-            }
+            const_reverse_iterator  rend() const    { return const_reverse_iterator(begin()); }
 
 
         // Capacity
 
-            // renvoie le nombre d'éléments dans le vector
-            size_type               size() const {
+            size_type               size() const        { return _size; }
 
-                return _size;
-            }
-
-            // renvoie le nombre maximun d'éléments que le vector peut contenir
-            size_type               max_size() const {
-
-                return _alloc.max_size();
-            }
+            size_type               max_size() const    { return _alloc.max_size(); }
 
             // redimensionne le conteneur pour qu'il contienne 'n' éléments
             void                    resize(size_type n, value_type val = value_type()) {
@@ -186,15 +154,9 @@ namespace   ft
             }
             
             // renvoie la taille de l'espace de stockage actuellement allouée pour le vector -> peut être >= à la size
-            size_type               capacity() const {
-
-                return _capacity;
-            }
+            size_type               capacity() const    { return _capacity; }
             
-            bool                    empty() const {
-
-                return (_size == 0);
-            }
+            bool                    empty() const       { return (_size == 0); }
 
             void                    reserve(size_type n) {
 
@@ -212,15 +174,9 @@ namespace   ft
             }
 
         // Element access
-            reference               operator[](size_type n) {
+            reference               operator[](size_type n)         { return *(_v + n); }
 
-                return *(_v + n);
-            }
-
-            const_reference         operator[](size_type n) const {
-
-                return *(_v + n);
-            }
+            const_reference         operator[](size_type n) const   { return *(_v + n);}
 
             reference               at(size_type n) {
 
@@ -236,25 +192,13 @@ namespace   ft
                 return operator[](n);
             }
 
-            reference               front() {
+            reference               front()         { return *(begin()); }
 
-                return *(begin());
-            }
+            const_reference         front() const   { return *(begin()); }
 
-            const_reference         front() const {
+            reference               back()          { return *(end() - 1); }
 
-                return *(begin());
-            }
-
-            reference               back() {
-
-                return *(end() - 1);
-            }
-
-            const_reference         back() const {
-
-                return *(end() - 1);
-            }
+            const_reference         back() const    { return *(end() - 1); }
 
         // Modifiers
             template<class InputIterator>
@@ -317,7 +261,7 @@ namespace   ft
                 size_t  n_end = ft::distance(position, end());
                 if (_size + n > _capacity)
                     while (_size + n > _capacity)
-                        reserve(_size != 0 ? (_capacity /*+ n*/) * 2 : n*2);
+                        reserve(_size != 0 ? _capacity * 2 : n*2);
                 size_t i = 0;
                 for (; i < n_end; i++)
                 {
@@ -337,7 +281,7 @@ namespace   ft
                 size_t  n_end = ft::distance(position, end());
                 if (_size + n > _capacity)
                     while (_size + n > _capacity)
-                        reserve(_size != 0 ? (_capacity /*+ n*/) * 2 : n*2);
+                        reserve(_size != 0 ? _capacity * 2 : n*2);
                 size_t i = 0;
                 for (; i < n_end; i++)
                 {
@@ -354,7 +298,6 @@ namespace   ft
 
             iterator                erase(iterator position) {
 
-                //_alloc.destroy(&*position);
                 pointer ret = &(*end());
                 if (position != end())
                 {
@@ -364,14 +307,11 @@ namespace   ft
                     ret = ptr;
                     while (tmp != end())
                     {
-                       // _alloc.destroy(&*tmp);
                         _alloc.construct(ptr, *tmp);
                         ptr = &(*(tmp++));
                     }
-                pop_back();
+                    pop_back();
                 }
-                //_size--;
-
                 return iterator(ret);
             }
 
@@ -419,10 +359,7 @@ namespace   ft
             }
         
         // Allocator
-            allocator_type          get_allocator() const {
-
-                return _alloc;
-            }
+            allocator_type          get_allocator() const   { return _alloc; }
 
         private:
 
