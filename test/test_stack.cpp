@@ -13,7 +13,7 @@
 #include "main.hpp"
 
 template<class T>
-void    printStack(T & stack, std::string str)
+static void    printStack(T & stack, std::string str)
 {
     std::cout << "------------ " << str << " ------------" << std::endl;
     std::cout << "size     => " << stack.size() << std::endl;
@@ -23,7 +23,7 @@ void    printStack(T & stack, std::string str)
 }
 
 template<class T, class C>
-void    printContent(NS::stack<T, C> & stack)
+static void    printContent(NS::stack<T, C> & stack)
 {
     std::cout << "------------ CONTENT -----------" << std::endl;
     if (!stack.empty())
@@ -65,7 +65,7 @@ static void    _empty(void)
     std::cout << "s1.empty() = " << s1.empty() << std::endl;
     std::cout << std::endl << std::endl;
 
-    std::cin.get(); 
+    //std::cin.get(); 
 }
 
 static void     _push_pop(void)
@@ -99,7 +99,7 @@ static void     _push_pop(void)
     printStack(stack1, "stack 1");
     std::cout << std::endl << std::endl;
 
-    std::cin.get(); 
+    //std::cin.get(); 
 }
 
 static void     _size(void)
@@ -119,7 +119,7 @@ static void     _size(void)
     std::cout << "2. size: " << stack1.size() << '\n';
     std::cout << std::endl << std::endl;
 
-    std::cin.get(); 
+    //std::cin.get(); 
 }
 
 static void     _top(void)
@@ -140,7 +140,7 @@ static void     _top(void)
     std::cout << "stack1.top() = " << stack1.top() << std::endl;
     std::cout << std::endl << std::endl;
 
-    std::cin.get(); 
+    //std::cin.get(); 
 }
 
 static void    _relational_operators(void)
@@ -209,7 +209,7 @@ static void    _relational_operators(void)
     printContent(stack3);
     std::cout << std::endl;
 
-    std::cin.get();
+    //std::cin.get();
 }
 
 void    testStack(void)
