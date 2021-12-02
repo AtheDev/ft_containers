@@ -13,7 +13,7 @@
 #include "main.hpp"
 
 template<class T>
-void    printMap(T & map, std::string str)
+static void    printMap(T & map, std::string str)
 {
     std::cout << "------------ " << str << " ------------" << std::endl;
     std::cout << "size     => " << map.size() << std::endl;
@@ -22,7 +22,7 @@ void    printMap(T & map, std::string str)
 }
 
 template<class T>
-void    printContent(T & map)
+static void    printContent(T & map)
 {
     std::cout << "------------ CONTENT -----------" << std::endl;
     typename T::const_iterator it = map.begin();
@@ -33,6 +33,52 @@ void    printContent(T & map)
         std::cout << "map is empty !";
     std::cout << std::endl;
     std::cout << "--------------------------------------" << std::endl;
+}
+
+static void     _constructor(void)
+{
+    std::cout << "===== TEST CONSTRUCTOR() =====" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "map1 default constructor:" << std::endl;
+    NS::map<int, int> map1;
+
+    for (int i = 0; i < 10; i++)
+        map1.insert(NS::make_pair(i * 2, i * 2));
+    std::cout << std::endl;
+
+    std::cout << "map2 range constructor:" << std::endl;
+    NS::map<int, int> map2(++map1.begin(), map1.end());
+    for (int i = 0; i < 10; i++)
+        map1.insert(NS::make_pair(i - 10, i - 10));
+    std::cout << std::endl;
+
+    std::cout << "map3 copy constructor:" << std::endl;
+    NS::map<int, int> map3(map1);
+    std::cout << "map1 :" << std::endl;
+    printContent(map1);
+    std::cout << std::endl;
+    std::cout << "map2 :" << std::endl;
+    printContent(map2);
+    std::cout << std::endl;
+    std::cout << "map3 :" << std::endl;
+    printContent(map3);
+    std::cout << std::endl;
+
+    map3 = map2;
+    map2 = map1;
+    map1 = NS::map<int, int>();
+    std::cout << "map1 :" << std::endl;
+    printContent(map1);
+    std::cout << std::endl;
+    std::cout << "map2 :" << std::endl;
+    printContent(map2);
+    std::cout << std::endl;
+    std::cout << "map3 :" << std::endl;
+    printContent(map3);
+    std::cout << std::endl << std::endl;
+
+    //std::cin.get();
 }
 
 static void     _begin_end(void)
@@ -305,25 +351,57 @@ static void    _equal_range(void)
     std::cout << "Key = 'a'" << std::endl;
     pair1 = map1.equal_range('a');
     std::cout << "lower bound points to :";
-    std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
+    if (pair1.first == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
     std::cout << "upper bound points to :";
-    std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
+    if (pair1.second == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "Key = 'z'" << std::endl;
     pair1 = map1.equal_range('z');
     std::cout << "lower bound points to :";
-    std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
+    if (pair1.first == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
     std::cout << "upper bound points to :";
-    std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
+    if (pair1.second == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "Key = 'm'" << std::endl;
     pair1 = map1.equal_range('m');
     std::cout << "lower bound points to :";
-    std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
+    if (pair1.first == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
     std::cout << "upper bound points to :";
-    std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
+    if (pair1.second == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Key = '|'" << std::endl;
+    pair1 = map1.equal_range('|');
+    std::cout << "lower bound points to :";
+    if (pair1.first == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.first->first << " => " << pair1.first->second << std::endl;
+    std::cout << "upper bound points to :";
+    if (pair1.first == map1.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair1.second->first << " => " << pair1.second->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "Test pair<const_iterator,const_iterator> equal_range()" << std::endl;
@@ -334,25 +412,57 @@ static void    _equal_range(void)
     std::cout << "Key = 'a'" << std::endl;
     pair2 = map2.equal_range('a');
     std::cout << "lower bound points to :";
-    std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
+    if (pair2.first == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
     std::cout << "upper bound points to :";
-    std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
+    if (pair2.second == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "Key = 'z'" << std::endl;
     pair2 = map2.equal_range('z');
     std::cout << "lower bound points to :";
-    std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
+    if (pair2.first == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
     std::cout << "upper bound points to :";
-    std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
+    if (pair2.second == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "Key = 'm'" << std::endl;
     pair2 = map2.equal_range('m');
     std::cout << "lower bound points to :";
-    std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
+    if (pair2.first == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
     std::cout << "upper bound points to :";
-    std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
+    if (pair2.second == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Key = '|'" << std::endl;
+    pair2 = map2.equal_range('|');
+    std::cout << "lower bound points to :";
+    if (pair2.first == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.first->first << " => " << pair2.first->second << std::endl;
+    std::cout << "upper bound points to :";
+    if (pair2.second == map2.end())
+        std::cout << " = end()" << std::endl;
+    else
+        std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
     std::cout << std::endl << std::endl;
 
     //std::cin.get();
@@ -493,7 +603,7 @@ static void     _insert(void)
     for (int i = 0; i < 10; i++)
         it2++;
 
-    NS::map<char, int> map2;
+    NS::map<int, int> map2;
     map2.insert(map1.begin(), it2);
     std::cout << std::endl;
     printMap(map2, "map 2");
@@ -506,7 +616,7 @@ static void     _insert(void)
 
 static void     _key_compare(void)
 {
-    std::cout << "===== TEST GET_ALLOCATOR() =====" << std::endl;
+    std::cout << "===== TEST KEY_COMPARE() =====" << std::endl;
     std::cout << std::endl;
 
     NS::map<char, int> map1;
@@ -549,31 +659,55 @@ static void     _lower_upper_bound(void)
     std::cout << "test iterator lower_bound() :" << std::endl;
     std::cout << "map1.lower_bound('a') = ";
     itlow = map1.lower_bound('a');
-    std::cout << itlow->first << " => " << itlow->second << std::endl;
+    if (itlow == map1.end())
+        std::cout << "itlow = end()" << std::endl;
+    else
+        std::cout << itlow->first << " => " << itlow->second << std::endl;
     std::cout << "map1.lower_bound('e') = ";
     itlow = map1.lower_bound('e');
-    std::cout << itlow->first << " => " << itlow->second << std::endl;
+    if (itlow == map1.end())
+        std::cout << "itlow = end()" << std::endl;
+    else
+        std::cout << itlow->first << " => " << itlow->second << std::endl;
     std::cout << "map1.lower_bound('r') = ";
     itlow = map1.lower_bound('r');
-    std::cout << itlow->first << " => " << itlow->second << std::endl;
+    if (itlow == map1.end())
+        std::cout << "itlow = end()" << std::endl;
+    else
+        std::cout << itlow->first << " => " << itlow->second << std::endl;
     std::cout << "map1.lower_bound('b') = ";
     itlow = map1.lower_bound('b');
-    std::cout << itlow->first << " => " << itlow->second << std::endl;
+    if (itlow == map1.end())
+        std::cout << "itlow = end()" << std::endl;
+    else
+        std::cout << itlow->first << " => " << itlow->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "test iterator upper_bound() :" << std::endl;
     std::cout << "map1.upper_bound('a') = ";
     itup = map1.upper_bound('a');
-    std::cout << itup->first << " => " << itup->second << std::endl;
+    if (itup == map1.end())
+        std::cout << "itup = end()" << std::endl;
+    else
+        std::cout << itup->first << " => " << itup->second << std::endl;
     std::cout << "map1.upper_bound('e') = ";
     itup = map1.upper_bound('e');
-    std::cout << itup->first << " => " << itup->second << std::endl;
+    if (itup == map1.end())
+        std::cout << "itup = end()" << std::endl;
+    else
+        std::cout << itup->first << " => " << itup->second << std::endl;
     std::cout << "map1.upper_bound('r') = ";
     itup = map1.upper_bound('r');
-    std::cout << itup->first << " => " << itup->second << std::endl;
+    if (itup == map1.end())
+        std::cout << "itup = end()" << std::endl;
+    else
+        std::cout << itup->first << " => " << itup->second << std::endl;
     std::cout << "map1.upper_bound('d') = ";
     itup = map1.upper_bound('d');
-    std::cout << itup->first << " => " << itup->second << std::endl;
+    if (itup == map1.end())
+        std::cout << "itup = end()" << std::endl;
+    else
+        std::cout << itup->first << " => " << itup->second << std::endl;
     std::cout << std::endl;
 
     map1.erase(itlow,itup);
@@ -584,31 +718,55 @@ static void     _lower_upper_bound(void)
     std::cout << "test const_iterator lower_bound() :" << std::endl;
     std::cout << "map2.lower_bound('a') = ";
     c_itlow = map2.lower_bound('a');
-    std::cout << c_itlow->first << " | " << c_itlow->second << std::endl;
+    if (c_itlow == map2.end())
+        std::cout << "c_itlow = end()" << std::endl;
+    else
+        std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
     std::cout << "map2.lower_bound('e') = ";
     c_itlow = map2.lower_bound('e');
-    std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
+    if (c_itlow == map2.end())
+        std::cout << "c_itlow = end()" << std::endl;
+    else
+        std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
     std::cout << "map2.lower_bound('r') = ";
     c_itlow = map2.lower_bound('r');
-    std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
+    if (c_itlow == map2.end())
+        std::cout << "c_itlow = end()" << std::endl;
+    else
+        std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
     std::cout << "map2.lower_bound('b') = ";
     c_itlow = map2.lower_bound('b');
-    std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
+    if (c_itlow == map2.end())
+        std::cout << "c_itlow = end()" << std::endl;
+    else
+        std::cout << c_itlow->first << " => " << c_itlow->second << std::endl;
     std::cout << std::endl;
 
     std::cout << "test const_iterator upper_bound() :" << std::endl;
     std::cout << "map2.upper_bound('a') = ";
     c_itup = map2.upper_bound('a');
-    std::cout << c_itup->first << " => " << c_itup->second << std::endl;
+    if (c_itup == map2.end())
+        std::cout << "c_itup = end()" << std::endl;
+    else
+        std::cout << c_itup->first << " => " << c_itup->second << std::endl;
     std::cout << "map2.upper_bound('e') = ";
     c_itup = map2.upper_bound('e');
-    std::cout << c_itup->first << " => " << c_itup->second << std::endl;
+    if (c_itup == map2.end())
+        std::cout << "c_itup = end()" << std::endl;
+    else
+        std::cout << c_itup->first << " => " << c_itup->second << std::endl;
     std::cout << "map2.upper_bound('r') = ";
     c_itup = map2.upper_bound('r');
-    std::cout << c_itup->first << " => " << c_itup->second << std::endl;
+    if (c_itup == map2.end())
+        std::cout << "c_itup = end()" << std::endl;
+    else
+        std::cout << c_itup->first << " => " << c_itup->second << std::endl;
     std::cout << "map2.upper_bound('d') = ";
     c_itup = map2.upper_bound('d');
-    std::cout << c_itup->first << " => " << c_itup->second << std::endl;
+    if (c_itup == map2.end())
+        std::cout << "c_itup = end()" << std::endl;
+    else
+        std::cout << c_itup->first << " => " << c_itup->second << std::endl;
     std::cout << std::endl;
 
     printMap(map2, "map 2");
@@ -879,11 +1037,103 @@ static void    _swap(void)
     //std::cin.get();
 }
 
+static void     _value_compare(void)
+{
+    std::cout << "===== TEST VALUE_COMPARE() =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::map<char, int> map1;
+
+    map1['a'] = 100;
+    map1['b'] = 200;
+    map1['c'] = 300;
+
+    std::cout << "map1 contains :" << std::endl;
+
+    NS::pair<char, int>   highest = *map1.rbegin();
+
+    NS::map<char, int>::iterator it = map1.begin();
+    do {
+        std::cout << it->first << " => " << it->second << std::endl;
+    } while (map1.value_comp()(*it++, highest));
+    std::cout << std::endl;
+
+    //std::cin.get();
+}
+
+static void    _relational_operators(void)
+{
+    std::cout << "===== TEST RELATIONAL OPERATORS =====" << std::endl;
+    std::cout << std::endl;
+
+    NS::map<char, int> map1;
+
+    map1['e'] = 5;
+    map1['z'] = 26;
+    map1['n'] = 14;
+    map1['b'] = 2;
+    map1['a'] = 1;
+    map1['v'] = 22;
+    map1['t'] = 20;
+
+    NS::map<char, int> map2(++map1.begin(), map1.end());
+    NS::map<char, int> map3(map1);
+    std::cout << "map1 :" << std::endl;
+    printContent(map1);
+    std::cout << std::endl;
+    std::cout << "map2 :" << std::endl;
+    printContent(map2);
+    std::cout << std::endl;
+    std::cout << "map3 :" << std::endl;
+    printContent(map3);
+    std::cout << std::endl;
+
+    if (map1 == map2)
+        std::cout << "map1 == map2" << std::endl;
+    if (map1 != map2)
+        std::cout << "map1 != map2" << std::endl;
+    if (map1 < map2)
+        std::cout << "map1 < map2" << std::endl;
+    if (map1 > map2)
+        std::cout << "map1 > map2" << std::endl;
+    if (map1 <= map2)
+        std::cout << "map1 <= map2" << std::endl;
+    if (map1 >= map2)  
+        std::cout << "map1 >= map2" << std::endl;
+    std::cout << std::endl;
+    if (map1 == map3)
+        std::cout << "map1 == map3" << std::endl;
+    if (map1 != map3)
+        std::cout << "map1 != map3" << std::endl;
+    if (map1 < map3)
+        std::cout << "map1 < map3" << std::endl;
+    if (map1 > map3)
+        std::cout << "map1 > map3" << std::endl;
+    if (map1 <= map3)
+        std::cout << "map1 <= map3" << std::endl;
+    if (map1 >= map3)  
+        std::cout << "map1 >= map3" << std::endl;
+    std::cout << std::endl;
+    if (map3 == map2)
+        std::cout << "map3 == map2" << std::endl;
+    if (map3 != map2)
+        std::cout << "map3 != map2" << std::endl;
+    if (map3 < map2)
+        std::cout << "map3 < map2" << std::endl;
+    if (map3 > map2)
+        std::cout << "map3 > map2" << std::endl;
+    if (map3 <= map2)
+        std::cout << "map3 <= map2" << std::endl;
+    if (map3 >= map2)  
+        std::cout << "map3 >= map2" << std::endl;
+    std::cout << std::endl;
+
+    //std::cin.get();
+}
+
 void    testMap(void)
 {
-    /**********************************/
-    /*    AJOUTER TEST CONSTRUCTOR    */
-    /**********************************/
+    _constructor();
     _begin_end();
     _clear();
     _count();
@@ -901,6 +1151,6 @@ void    testMap(void)
     _rbegin_rend();
     _size();
     _swap();
-/*    _value_compare();
-    _relational_operators();*/
+    _value_compare();
+    _relational_operators();
 }
