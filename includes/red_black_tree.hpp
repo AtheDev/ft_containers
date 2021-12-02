@@ -24,7 +24,7 @@ enum color {BLACK = 0, RED};
 namespace   ft
 {
     template<class T>
-    class   Node
+    struct  Node
     {
         public:
 
@@ -51,12 +51,10 @@ namespace   ft
                 return *this;
             }
 
-        //private:
             value_type  value;
             node_ptr    parent;
             node_ptr    left;
             node_ptr    right;
-
             color         color;
 
     };
@@ -64,7 +62,6 @@ namespace   ft
     template <class T, class Compare, class Alloc = std::allocator<T> >
     class   RedBlackTree
     {
-        // refaire un rebind avec node
         typedef typename    Alloc::template rebind<Node<T> >::other    Node_Alloc;
 
         public:
@@ -81,10 +78,8 @@ namespace   ft
 
             typedef Compare                                         key_compare;
             typedef Node<value_type>                                node;
-            //typedef typename value_type::first_type                          key_type;
-            //typedef typename value_type::second_type                          mapped_type;
 
-            RedBlackTree(const allocator_type & alloc = allocator_type()): _root(NULL), _size(0), _comp(key_compare()), _alloc(alloc) {
+            RedBlackTree(const key_compare & comp, const allocator_type & alloc = allocator_type()): _root(NULL), _size(0), _comp(comp), _alloc(alloc) {
 
                 _sent = _alloc.allocate(1);
                 _alloc.construct(_sent, node());
@@ -307,10 +302,10 @@ namespace   ft
                 _root = _sent;
             }
 
-            void    _print(void) {
+            /*void    _print(void) {
 
                 _printRBT(_root, _sent, 0);
-            }
+            }*/
 
     /*template<class T1, class T2>
     T1 &          key_val(ft::pair<T1, T2> & p) const {
@@ -334,11 +329,12 @@ namespace   ft
 
         private:
 
-            node_ptr        _root;
-            node_ptr        _sent;
-            size_type       _size;
-            key_compare     _comp;
-            Node_Alloc      _alloc;
+            node_ptr                    _root;
+            node_ptr                    _sent;
+            size_type                   _size;
+            key_compare                 _comp;
+            //RBT_key_compare<Compare>    _comp;
+            Node_Alloc                  _alloc;
 
             void        clearRBT(node_ptr root) {
 
@@ -528,7 +524,7 @@ namespace   ft
                 node->color = BLACK;
             }
 
-            void    _printRBT(node_ptr current, node_ptr sent, int space)
+/*            void    _printRBT(node_ptr current, node_ptr sent, int space)
             {
                 if ( current != sent) 
                 {
@@ -540,7 +536,7 @@ namespace   ft
                     _printRBT(current->left, sent, space);
                 }                
             }
-
+*/
     };
 }
 

@@ -43,6 +43,7 @@ namespace   ft
             typedef Node<value_type>                                node_type;
             typedef node_type *                                     node_ptr;
 
+
             class   value_compare
             {
                 friend class map;
@@ -50,21 +51,23 @@ namespace   ft
 
                     bool    operator()(const value_type & x, const value_type & y) const {
                         
-                        return key_compare()(x.first, y.first); // mettre key_compare()
+                        return key_compare()(x.first, y.first);
                     }
 
                     value_compare &operator=(const value_compare &) { return *this; }
 
-                /*protected:
+                protected:
 
                     Compare     comp;
-                    value_compare(Compare c): comp(c) {}*/
+                    value_compare(Compare c): comp(c) {}
             };
+
+            typedef value_compare      value_c;
 
         private:
 
             typedef typename    Alloc::template rebind<value_type>::other   pair_allocator_type;
-            typedef RedBlackTree<value_type, value_compare, pair_allocator_type>    RBT;
+            //typedef RedBlackTree<value_type, key_compare, pair_allocator_type>    RBT;
 
         public:
 
@@ -74,25 +77,25 @@ namespace   ft
             typedef ft::reverse_iterator<const_iterator>                                    const_reverse_iterator;
 
             explicit map(const key_compare & comp = key_compare(),
-                            const allocator_type & alloc = allocator_type()): _tree() {
+                            const allocator_type & alloc = allocator_type()): _alloc(alloc), _key_comp(comp), _value_comp(value_compare(comp)), _tree(_value_comp)  {
 
-                _alloc = alloc;
-                _key_comp = comp;
-                _value_comp = value_compare();
+                //_alloc = alloc;
+                //_key_comp = comp; // less<Key>
+                //_value_comp = value_compare(comp); // class value_compare(comp)
             }
 
             template<class InputIterator>
             map(InputIterator first, InputIterator last,
                     const key_compare& comp = key_compare(),
-                    const allocator_type& alloc = allocator_type()): _tree() {
+                    const allocator_type& alloc = allocator_type()): _alloc(alloc), _key_comp(comp), _value_comp(value_compare(comp)), _tree(_value_comp)  {
 
-                _alloc = alloc;
-                _key_comp = comp;
-                _value_comp = value_compare();
+                //_alloc = alloc;
+                //_key_comp = comp;
+                //_value_comp = value_compare();
                 _tree.insert(first, last);
             }
 
-            map(const map & cpy) {
+            map(const map & cpy): _key_comp(key_compare()), _value_comp(value_compare(key_compare())), _tree(_value_comp)  {
 
                 *this = cpy;
             }
@@ -111,95 +114,30 @@ namespace   ft
                 return *this;
             }
 
-        /*
-            Renvoie un itérateur faisant référence au premier élément de map .
-            => begin pointe vers l'élément qui va en premier suivant le critère de tri du conteneur .
-            Si le conteneur est vide , la valeur de l'itérateur renvoyée ne doit pas être déréférencée.
-        */
-            iterator            begin() {
 
-                return iterator(_tree.minimum(_tree.getRoot()), _tree.getSent(), _tree.getRoot());
-            }
+            iterator                begin()             { return iterator(_tree.minimum(_tree.getRoot()), _tree.getSent(), _tree.getRoot()); }
 
-            const_iterator      begin() const {
+            const_iterator          begin() const       { return const_iterator(_tree.minimum(_tree.getRoot()), _tree.getSent(), _tree.getRoot()); }
 
-                return const_iterator(_tree.minimum(_tree.getRoot()), _tree.getSent(), _tree.getRoot());
-            }
+            iterator                end()               { return iterator(_tree.getSent(), _tree.getSent(), _tree.getRoot()); }
 
+            const_iterator          end() const         { return const_iterator(_tree.getSent(), _tree.getSent(), _tree.getRoot()); }
 
-        /*
-            Renvoie un itérateur se référant à l' élément au -delà de la fin dans le conteneur de map .
-            Si le conteneur est vide , cette fonction renvoie la même chose que map::begin .
-        */
-            iterator            end() {
-
-                return iterator(_tree.getSent(), _tree.getSent(), _tree.getRoot());
-            }
-
-            const_iterator      end() const {
-
-                return const_iterator(_tree.getSent(), _tree.getSent(), _tree.getRoot());
-            }
-
-
-        /*
-            Renvoie un itérateur inverse pointant sur le dernier élément du conteneur (c'est-à-dire son début inverse ).
-            Les itérateurs inverses itèrent vers l'arrière : les augmenter les déplace vers le début du conteneur.
-            => rbegin pointe sur l'élément précédant celui qui serait pointé par membre end .
-        */
-            reverse_iterator        rbegin() {
-
-                return reverse_iterator(end());
-            }
+            reverse_iterator        rbegin()            { return reverse_iterator(end()); }
             
-            const_reverse_iterator  rbegin() const {
+            const_reverse_iterator  rbegin() const      { return const_reverse_iterator(end()); }
 
-               return const_reverse_iterator(end());
-            }
+            reverse_iterator        rend()              { return reverse_iterator(begin()); }
 
-        
-        /*
-            Renvoie un itérateur inverse pointant sur l'élément théorique juste avant le premier élément du conteneur
-            (qui est considéré comme son extrémité inverse ).
-            La plage entre map::rbegin et map::rend contient tous les éléments du conteneur (dans l'ordre inverse).
-        */
-            reverse_iterator        rend() {
-
-               return reverse_iterator(begin());
-            }
-
-            const_reverse_iterator  rend() const {
-
-               return const_reverse_iterator(begin());
-            }
+            const_reverse_iterator  rend() const        { return const_reverse_iterator(begin()); }
 
        
-            bool                    empty() const {
+            bool                    empty() const       { return (_tree.empty()); }
 
-                return (_tree.empty());
-            }
+            size_type               size() const        { return (_tree.size()); }
 
-            size_type               size() const {
+            size_type               max_size() const    { return (_tree.max_size()); }
 
-                return (_tree.size());
-            }
-
-            size_type               max_size() const {
-
-                return (_tree.max_size());
-            }
-
-
-        /*
-            Si k correspond à la clé d'un élément dans le conteneur,
-            la fonction renvoie une référence à sa valeur mappée.
-            Si k ne correspond à la clé d'aucun élément du conteneur,
-            la fonction insère un nouvel élément avec cette clé et
-            renvoie une référence à sa valeur mappée.
-            Notez que cela augmente toujours la taille du conteneur d'une unité,
-            même si aucune valeur mappée n'est affectée à l'élément
-            (l'élément est construit à l'aide de son constructeur par défaut).
-        */
             mapped_type &           operator[] (const key_type & k) {
 
                 iterator    tmp = lower_bound(k);
@@ -209,34 +147,7 @@ namespace   ft
                 return (tmp->second);
             }
 
-            mapped_type &           at(const key_type & k) {
 
-                iterator    tmp = lower_bound(k);
-                ft::pair<key_type, mapped_type> p = ft::make_pair(k, mapped_type());
-                if (tmp == end() || _value_comp(p, tmp.node()->value))
-                    throw std::out_of_range("map::at");
-                return (tmp->second);
-            }
-
-            const mapped_type &     at(const key_type & k) const {
-
-                const_iterator    tmp = lower_bound(k);
-                ft::pair<key_type, mapped_type> p = ft::make_pair(k, mapped_type());
-                if (tmp == end() || _value_comp(p, tmp.node()->value))
-                    throw std::out_of_range("map::at");
-                return (tmp->second);
-            }
-
-
-        /*
-            Étend le conteneur en insérant de nouveaux éléments,
-            augmentant ainsi la taille du conteneur du nombre d'éléments insérés.
-            Étant donné que les clés d'élément dans une map sont uniques,
-            l'opération d'insertion vérifie si chaque élément inséré a une clé équivalente à celle d'un élément déjà dans le conteneur,
-            et si c'est le cas, l'élément n'est pas inséré, renvoyant un itérateur à cet élément existant ( si la fonction renvoie une valeur).
-            Une autre façon d'insérer des éléments dans une carte consiste à utiliser la fonction membre map::operator[] .
-            ATTENTION : 'position' n'est que un indice et il ne force pas l'insertion du nouvel élément à cette position dans le conteneur map (les éléments d'une map suivent toujours un ordre spécifique en fonction de leur clé).
-        */
             ft::pair<iterator,bool> insert(const value_type & val) {
 
                 ft::pair<node_ptr, bool> tmp = _tree.insert(val);
@@ -257,10 +168,6 @@ namespace   ft
             }
 
 
-        /*
-            Supprime du conteneur map soit un élément unique, soit une plage d'éléments ( [first,last) ).
-            Cela réduit efficacement la taille du conteneur par le nombre d'éléments retirés, qui sont détruits.
-        */
             void                    erase(iterator position) {
 
                 _tree.erase(position.node());
@@ -280,41 +187,15 @@ namespace   ft
             }
 
 
-        /*
-            Échange le contenu du conteneur par le contenu de x , qui est une autre map du même type.
-            Les tailles peuvent différer.
-            Après l'appel à cette fonction membre, les éléments de ce conteneur sont ceux qui étaient dans x avant l'appel,
-            et les éléments de x sont ceux qui étaient dans this .
-            Tous les itérateurs, références et pointeurs restent valides pour les objets échangés.
-        */
-            void                    swap(map & x) {
+            void                    swap(map & x) { _tree.swap(x._tree); }
 
-                _tree.swap(x._tree);
-            }
+            void                    clear() { _tree.clear(); }
 
 
-        /*
-            Supprime tous les éléments du conteneur map (qui sont détruits),
-            laissant le conteneur avec une taille de 0 .
-        */
-            void                    clear() {
+            key_compare             key_comp() const { return _key_comp; }
 
-                _tree.clear();
-            }
+            value_compare           value_comp() const { return _value_comp; }
 
-
-        /*
-            Renvoie une copie de l' objet de comparaison utilisé par le conteneur pour comparer les clés .
-        */
-            key_compare             key_comp() const {
-
-                return _key_comp;
-            }
-
-            value_compare           value_comp() const {
-
-                return _value_comp;
-            }
 
             iterator                find(const key_type & k) {
 
@@ -334,28 +215,9 @@ namespace   ft
                 return (tmp);
             }
 
-
-        /*
-            Recherche dans le conteneur des éléments avec une clé équivalente à k
-            et renvoie le nombre de correspondances.
-            Étant donné que tous les éléments d'un conteneur de carte sont uniques,
-            la fonction ne peut renvoyer que 1 (si l'élément est trouvé) ou zéro (sinon).
-        */
-            size_type               count(const key_type & k) const {
-
-                return (find(k) == end() ? 0 : 1);
-            }
+            size_type               count(const key_type & k) const { return (find(k) == end() ? 0 : 1); }
 
 
-        /*
-            Renvoie un itérateur pointant sur le premier élément du conteneur
-            dont la clé n'est pas considérée comme antérieure à k
-            (c'est-à-dire qu'elle est équivalente ou postérieure).
-            La fonction utilise son objet de comparaison interne ( key_comp ) pour déterminer cela,
-            renvoyant un itérateur au premier élément pour lequel key_comp(element_key,k) renverrait false .
-            Si la classe map est instanciée avec le type de comparaison par défaut ( less ),
-            la fonction renvoie un itérateur au premier élément dont la clé n'est pas inférieure à k .
-        */
             iterator                lower_bound(const key_type & k) {
 
                 node_ptr x = _tree.getRoot();
@@ -396,15 +258,6 @@ namespace   ft
                 return const_iterator(y, _tree.getSent(), _tree.getRoot());
             }
 
-
-        /*
-            Renvoie un itérateur pointant sur le premier élément du conteneur
-            dont la clé est considérée comme allant après k .
-            La fonction utilise son objet de comparaison interne ( key_comp ) pour déterminer cela,
-            renvoyant un itérateur au premier élément pour lequel key_comp(k,element_key) renverrait true .
-            Si la classe map est instanciée avec le type de comparaison par défaut ( less ),
-            la fonction renvoie un itérateur au premier élément dont la clé est supérieure à k .
-        */
             iterator                upper_bound(const key_type & k) {
 
                 node_ptr x = _tree.getRoot();
@@ -445,43 +298,34 @@ namespace   ft
                 return const_iterator(y, _tree.getSent(), _tree.getRoot());
             }
 
-
-        /*
-            Renvoie les limites d'une plage qui inclut tous les éléments du conteneur
-            qui ont une clé équivalente à k .
-            Étant donné que les éléments d'un conteneur de carte ont des clés uniques,
-            la plage renvoyée contiendra au plus un élément.
-            Si aucune correspondance n'est trouvée, la plage renvoyée a une longueur de zéro,
-            les deux itérateurs pointant sur le premier élément dont la clé est considérée
-            comme allant après k selon l' objet de comparaison interne du conteneur ( key_comp ).
-        */
-            pair<iterator,iterator>                 equal_range(const key_type & k) {
+            pair<iterator, iterator>                 equal_range(const key_type & k) {
 
                 return ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k));  
             }
 
-            pair<const_iterator,const_iterator>     equal_range(const key_type & k) const {
+            pair<const_iterator,c onst_iterator>     equal_range(const key_type & k) const {
 
                 return ft::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
             }
 
-            allocator_type  get_allocator() const {
+            allocator_type  get_allocator() const { return allocator_type(); }
 
-                return allocator_type();
-            }
+            template<class _Key, class _T, class _Compare, class _Alloc>
+            friend bool    operator==( const map<_Key, _T, _Compare, _Alloc> & lhs,
+                    const map<_Key, _T, _Compare, _Alloc> & rhs );
 
-    template<class _Key, class _T, class _Compare, class _Alloc>
-    friend bool    operator==( const map<_Key, _T, _Compare, _Alloc> & lhs,
+            template<class _Key, class _T, class _Compare, class _Alloc>
+            friend bool    operator<( const map<_Key, _T, _Compare, _Alloc> & lhs,
                     const map<_Key, _T, _Compare, _Alloc> & rhs );
-    template<class _Key, class _T, class _Compare, class _Alloc>
-    friend bool    operator<( const map<_Key, _T, _Compare, _Alloc> & lhs,
-                    const map<_Key, _T, _Compare, _Alloc> & rhs );
+
         private:
 
-            RBT/*RedBlackTree<value_type, value_compare, pair_allocator_type>  */            _tree;
+           // RBT             _tree;
+
             allocator_type  _alloc;
             key_compare     _key_comp;
-            value_compare   _value_comp;
+            value_c   _value_comp;
+            RedBlackTree<value_type, value_c, pair_allocator_type> _tree;
 
     };
 
