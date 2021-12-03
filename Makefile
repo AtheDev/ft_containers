@@ -4,7 +4,7 @@ CXXFLAGS	= -Wall -Werror -Wextra -std=c++98 -g
 RM 			= rm -rf
 
 SRCS	 	= test/main.cpp test/test_vector.cpp test/test_stack.cpp test/test_map.cpp \
-				test/test_pair.cpp
+				test/test_pair.cpp test/test_algorithm.cpp
 OBJS 		= $(SRCS:.cpp=.o)
 
 define run_ft

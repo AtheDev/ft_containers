@@ -53,5 +53,6 @@ void    testVector(void);
 void	testStack(void);
 void	testMap(void);
 void	testPair(void);
+void	testAlgorithm(void);
 
 #endif

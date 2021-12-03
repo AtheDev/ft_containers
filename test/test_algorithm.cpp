@@ -62,20 +62,19 @@ void    testAlgorithm(void)
         std::cout << std::endl;
 
         std::cout << "********** Test lexicographical_compare **********" << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end(), compInf<int>) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end(), compInf<int>) << std::endl;
+        std::cout << "=> vect1 et vect2 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end()) << std::endl;
+        std::cout << "=> vect1 et vect3 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end()) << std::endl;
+        std::cout << "=> vect1 et vect2 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end(), compInf<int>) << std::endl;
+        std::cout << "=> vect1 et vect3 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end(), compInf<int>) << std::endl;
 
         std::cout << std::endl;
 
         std::cout << "********** Test equal**********" << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 : " << NS::equal(vect1.begin(), vect1.end(), vect2.begin()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 : " << NS::equal(vect1.begin(), vect1.end(), vect3.begin()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect2.begin(), compEqual<int>) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect3.begin(), compEqual<int>) << std::endl;
+        std::cout << "=> vect1 et vect2 : " << NS::equal(vect1.begin(), vect1.end(), vect2.begin()) << std::endl;
+        std::cout << "=> vect1 et vect3 : " << NS::equal(vect1.begin(), vect1.end(), vect3.begin()) << std::endl;
+        std::cout << "=> vect1 et vect2 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect2.begin(), compEqual<int>) << std::endl;
+        std::cout << "=> vect1 et vect3 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect3.begin(), compEqual<int>) << std::endl;
     }
-    std::cin.get();
     std::cout << std::endl;
     {
         std::cout << "**********************************************" << std::endl;
@@ -108,18 +107,17 @@ void    testAlgorithm(void)
         std::cout << std::endl;
 
         std::cout << "********** Test lexicographical_compare **********" << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end(), compInf<std::string>) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end(), compInf<std::string>) << std::endl;
+        std::cout << "=> vect1 et vect2 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end()) << std::endl;
+        std::cout << "=> vect1 et vect3 : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end()) << std::endl;
+        std::cout << "=> vect1 et vect2 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect2.begin(), vect2.end(), compInf<std::string>) << std::endl;
+        std::cout << "=> vect1 et vect3 et compInf : " << NS::lexicographical_compare(vect1.begin(), vect1.end(), vect3.begin(), vect3.end(), compInf<std::string>) << std::endl;
 
         std::cout << std::endl;
 
         std::cout << "********** Test equal**********" << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 : " << NS::equal(vect1.begin(), vect1.end(), vect2.begin()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 : " << NS::equal(vect1.begin(), vect1.end(), vect3.begin()) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect2 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect2.begin(), compEqual<std::string>) << std::endl;
-        std::cout << "=> " << NS_NAME << ": vect1 et vect3 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect3.begin(), compEqual<std::string>) << std::endl;
+        std::cout << "=> vect1 et vect2 : " << NS::equal(vect1.begin(), vect1.end(), vect2.begin()) << std::endl;
+        std::cout << "=> vect1 et vect3 : " << NS::equal(vect1.begin(), vect1.end(), vect3.begin()) << std::endl;
+        std::cout << "=> vect1 et vect2 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect2.begin(), compEqual<std::string>) << std::endl;
+        std::cout << "=> vect1 et vect3 et compEqual: " << NS::equal(vect1.begin(), vect1.end(), vect3.begin(), compEqual<std::string>) << std::endl;
     }
-    std::cin.get();
 }
