@@ -18,7 +18,8 @@ int main()
     //testStack();
     //testMap();
     //testPair();
-    testAlgorithm();
+    //testAlgorithm();
+    testIterator();
 
     return 0;
 }
