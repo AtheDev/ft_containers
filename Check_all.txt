@@ -46,11 +46,11 @@ map :
 
 -> check : iterateurs_traits + reverse_iterator -> (nom du fichier, les includes, indentation, commentaire)
 
--> check : enable_if + is_integral -> (nom du fichier, les includes, indentation, commentaire)
+OK // -> check : enable_if + is_integral -> (nom du fichier, les includes, indentation, commentaire)
 
--> check : equal + lexicographical compare -> (nom du fichier, les includes, indentation, commentaire)
+OK // -> check : equal + lexicographical compare -> (nom du fichier, les includes, indentation, commentaire)
 
--> check : std::pair + std::make_pair -> (nom du fichier, les includes, indentation, commentaire)
+OK // -> check : std::pair + std::make_pair -> (nom du fichier, les includes, indentation, commentaire)
 
 
 ATTENTION pour surcharges non membres : le mot clé 'FRIEND' est autorisé mais doit être justifié
