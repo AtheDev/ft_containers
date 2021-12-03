@@ -16,7 +16,8 @@ int main()
 {
     //testVector();
     //testStack();
-    testMap();
+    //testMap();
+    testPair();
 
     return 0;
 }
