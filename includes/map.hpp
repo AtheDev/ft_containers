@@ -303,7 +303,7 @@ namespace   ft
                 return ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k));  
             }
 
-            pair<const_iterator,c onst_iterator>     equal_range(const key_type & k) const {
+            pair<const_iterator, const_iterator>     equal_range(const key_type & k) const {
 
                 return ft::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
             }
