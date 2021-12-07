@@ -2,7 +2,7 @@
 
 CC="clang++"
 CFLAGS="-Wall -Werror -Wextra -std=c++98"
-SRCS="main.cpp test_vector.cpp test_map.cpp test_stack.cpp test_pair.cpp test_algorithm.cpp test_iterator.cpp"
+SRCS="main.cpp test_vector.cpp test_map.cpp test_stack.cpp test_pair.cpp test_algorithm.cpp test_reverse_iterator.cpp"
 
 compile() {
 #$1 = ft/std

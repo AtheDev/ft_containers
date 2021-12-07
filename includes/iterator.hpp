@@ -261,13 +261,6 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
         return (reverse_iterator<Iterator>(it.base() - n));
     }
 
-    template<class Iterator1, class Iterator2>
-    reverse_iterator<Iterator1>  operator+( typename reverse_iterator<Iterator1>::difference_type n,
-                                        const reverse_iterator<Iterator2> & it ) {
-
-        return (reverse_iterator<Iterator1>(it.base() - n));
-    }
-
     template<class Iterator>
     typename reverse_iterator<Iterator>::difference_type    operator-( const reverse_iterator<Iterator> & lhs,
                                                                     const reverse_iterator<Iterator> & rhs ) {
@@ -281,6 +274,5 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
 
         return (rhs.base() - lhs.base());
     }
-
 }
 #endif
