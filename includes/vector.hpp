@@ -13,10 +13,9 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <iostream>
-
+//#include <iostream>
 #include "type_traits.hpp"
-#include "iterator.hpp"
+//#include "iterator.hpp"
 #include "random_access_iterator.hpp"
 #include "algorithm.hpp"
 
@@ -137,11 +136,9 @@ namespace   ft
 
                     if (n < _size)
                     {
-                        while (_size > n)
-                        {
-                            _alloc.destroy(_v +_size);
-                            _size--;
-                        }
+                        for (size_t i = n; i < _size; i++)
+                            _alloc.destroy(_v + i);
+                        _size = n;
                     }
                     else if (n > _size)
                     {
@@ -167,7 +164,10 @@ namespace   ft
                     T * ptrTmp = _v;
                     _v = _alloc.allocate(n);
                     for (size_t i = 0; i < _size; i++)
+                    {
                         _alloc.construct(_v + i, *(ptrTmp + i));
+                        _alloc.destroy(ptrTmp + i);
+                    }
                     _alloc.deallocate(ptrTmp, _capacity);
                     _capacity = n;
                 }
@@ -209,17 +209,17 @@ namespace   ft
 
                 if (i > _capacity)
                     reserve(i);
-                if (_size >= i)
-                    for (size_t j = 0; j < i; j++)
-                        _alloc.destroy(_v + j);
-                else if (_size < i)
+                //if (_size >= i)
                     for (size_t j = 0; j < _size; j++)
                         _alloc.destroy(_v + j);
+                //else if (_size < i)
+                    //for (size_t j = 0; j < _size; j++)
+                       // _alloc.destroy(_v + j);
                 for (size_t j = 0; first != last; first++, j++)
                     _alloc.construct(_v + j, *first);
                 _size = i;
             }
-
+//A voir si faire comme au dessus
             void                    assign(size_type n, const value_type & val) {
 
                 if (n > _capacity)
@@ -375,7 +375,7 @@ namespace   ft
 
         if (lhs.size() != rhs.size())
             return false;
-        return (equal(lhs.begin(), lhs.end(), rhs.begin()));
+        return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
 
     template <class T, class Alloc>
@@ -387,7 +387,7 @@ namespace   ft
     template <class T, class Alloc>
     bool    operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 
-        return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     template <class T, class Alloc>

@@ -13,11 +13,11 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-#include <iostream>
+//#include <iostream>
 #include "red_black_tree.hpp"
 #include "bidirectional_iterator.hpp"
 #include "algorithm.hpp"
-#include <functional>
+//#include <functional>
 
 namespace   ft
 {
@@ -62,12 +62,10 @@ namespace   ft
                     value_compare(Compare c): comp(c) {}
             };
 
-            typedef value_compare      value_c;
-
         private:
 
             typedef typename    Alloc::template rebind<value_type>::other   pair_allocator_type;
-            //typedef RedBlackTree<value_type, key_compare, pair_allocator_type>    RBT;
+            typedef RedBlackTree<value_type, value_compare, pair_allocator_type>    RBT;
 
         public:
 
@@ -77,21 +75,13 @@ namespace   ft
             typedef ft::reverse_iterator<const_iterator>                                    const_reverse_iterator;
 
             explicit map(const key_compare & comp = key_compare(),
-                            const allocator_type & alloc = allocator_type()): _alloc(alloc), _key_comp(comp), _value_comp(value_compare(comp)), _tree(_value_comp)  {
-
-                //_alloc = alloc;
-                //_key_comp = comp; // less<Key>
-                //_value_comp = value_compare(comp); // class value_compare(comp)
-            }
+                            const allocator_type & alloc = allocator_type()): _alloc(alloc), _key_comp(comp), _value_comp(value_compare(comp)), _tree(_value_comp)  {}
 
             template<class InputIterator>
             map(InputIterator first, InputIterator last,
                     const key_compare& comp = key_compare(),
                     const allocator_type& alloc = allocator_type()): _alloc(alloc), _key_comp(comp), _value_comp(value_compare(comp)), _tree(_value_comp)  {
 
-                //_alloc = alloc;
-                //_key_comp = comp;
-                //_value_comp = value_compare();
                 _tree.insert(first, last);
             }
 
@@ -320,12 +310,12 @@ namespace   ft
 
         private:
 
-           // RBT             _tree;
+
 
             allocator_type  _alloc;
             key_compare     _key_comp;
-            value_c   _value_comp;
-            RedBlackTree<value_type, value_c, pair_allocator_type> _tree;
+            value_compare   _value_comp;
+            RBT             _tree;
 
     };
 

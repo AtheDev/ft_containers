@@ -42,9 +42,9 @@ map :
 -> vérifier les espaces de nom sera toujours [ft]
 -> conteneurs seront testés en utilisant ft::<container>.
 
--> check reverse_iterator = + / -
+OK // -> check reverse_iterator = + / -
 
--> check : iterateurs_traits + reverse_iterator -> (nom du fichier, les includes, indentation, commentaire)
+OK // -> check : iterateurs_traits + reverse_iterator -> (nom du fichier, les includes, indentation, commentaire)
 
 OK // -> check : enable_if + is_integral -> (nom du fichier, les includes, indentation, commentaire)
 
@@ -68,3 +68,8 @@ https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
 https://fr.wikipedia.org/wiki/Arbre_bicolore
 
 https://code.woboq.org/gcc/libstdc++-v3/src/c++98/tree.cc.html#_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_
+
+
+
+
+https://github.com/Mazoise/FT_CONTAINERS_TESTER

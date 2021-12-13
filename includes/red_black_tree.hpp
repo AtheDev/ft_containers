@@ -13,11 +13,8 @@
 #ifndef RED_BLACK_TREE_HPP
 # define RED_BLACK_TREE_HPP
 
-#include "bidirectional_iterator.hpp"
-#include "utility.hpp"
 #include <iostream>
-#include <functional>
-#include "iterator.hpp"
+#include "utility.hpp"
 
 enum color {BLACK = 0, RED};
 
@@ -55,7 +52,7 @@ namespace   ft
             node_ptr    parent;
             node_ptr    left;
             node_ptr    right;
-            color         color;
+            color       color;
 
     };
 
@@ -302,38 +299,12 @@ namespace   ft
                 _root = _sent;
             }
 
-            /*void    _print(void) {
-
-                _printRBT(_root, _sent, 0);
-            }*/
-
-    /*template<class T1, class T2>
-    T1 &          key_val(ft::pair<T1, T2> & p) const {
-
-        return p.first;
-    }*/
-
-    /*key_compare             key_comp() const {
-
-        return _key_comp;
-        //return (_tree.key_compare());
-    }*/
-
-    /*value_compare           value_comp() const {
-
-        //return _value_comp;
-        return (value_compare(_tree.key_comp()));
-    }*/
-
-    //allocator_type  get_allocator() const
-
         private:
 
             node_ptr                    _root;
             node_ptr                    _sent;
             size_type                   _size;
             key_compare                 _comp;
-            //RBT_key_compare<Compare>    _comp;
             Node_Alloc                  _alloc;
 
             void        clearRBT(node_ptr root) {
@@ -523,20 +494,6 @@ namespace   ft
                 }
                 node->color = BLACK;
             }
-
-/*            void    _printRBT(node_ptr current, node_ptr sent, int space)
-            {
-                if ( current != sent) 
-                {
-                    space += 10;
-                    _printRBT(current->right, sent, space);
-                    std::cout << std::endl;
-                    for ( int _ = 0 ; _ < space ; _++ ){ std::cout << " "; }
-                        std::cout << "( " << current->value.first << " : " << current->value.second  << " => " << current->color  << " )" << std::endl;
-                    _printRBT(current->left, sent, space);
-                }                
-            }
-*/
     };
 }
 

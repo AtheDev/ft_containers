@@ -12,7 +12,7 @@
 
 #include "main.hpp"
 
-static void         testReverseIerator(void)
+void         testReverseIerator(void)
 {
     std::cout << "===== TEST REVERSE ITERATOR =====" << std::endl;
     std::cout << std::endl;

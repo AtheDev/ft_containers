@@ -54,6 +54,6 @@ void	testStack(void);
 void	testMap(void);
 void	testPair(void);
 void	testAlgorithm(void);
-void	testIterator(void);
+void    testReverseIerator(void);
 
 #endif

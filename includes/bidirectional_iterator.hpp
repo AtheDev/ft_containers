@@ -52,16 +52,6 @@ namespace   ft
             return *this;
         }
 
-		/*bool operator==(const bidirectional_iterator &other) const
-		{
-			return (_it == other._it);
-		}
-
-		bool operator!=(const bidirectional_iterator &other) const
-		{
-			return (_it != other._it);
-		}*/
-
 		operator				bidirectional_iterator<const pair_type, const node_type>() const
 		{
 
@@ -178,12 +168,12 @@ namespace   ft
            return lhs._it != rhs._it;
         }
 
-/*    template <class Iterator1, class Iterator2, class Node>
+    template <class Iterator1, class Iterator2, class Node>
     friend bool operator==(ft::bidirectional_iterator<Iterator1, Node> const & lhs, ft::bidirectional_iterator<Iterator2, Node> const & rhs);
 
     template <class Iterator1, class Iterator2, class Node>
     friend bool operator!=(ft::bidirectional_iterator<Iterator1, Node> const & lhs, ft::bidirectional_iterator<Iterator2, Node> const & rhs);
-*/
+
 
         private:
 
@@ -207,8 +197,7 @@ namespace   ft
             }
     };
 
-
- /*   template <class Iterator1, class Iterator2, class Node>
+    template <class Iterator1, class Iterator2, class Node>
     bool operator==(ft::bidirectional_iterator<Iterator1, Node> const & lhs,
                    ft::bidirectional_iterator<Iterator2, Node> const & rhs) {
 
@@ -221,7 +210,6 @@ namespace   ft
 
         return (lhs._it != rhs._it);
     }
-*/
 }
 
 
