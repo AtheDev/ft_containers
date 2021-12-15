@@ -5,7 +5,9 @@ CXXFLAGS	= -g -fsanitize=address -Wall -Wextra -Werror -std=c++98
 RM 			= rm -rf
 
 SRCS	 	= test/main.cpp test/test_vector.cpp test/test_stack.cpp test/test_map.cpp \
-				test/test_pair.cpp test/test_algorithm.cpp test/test_reverse_iterator.cpp
+				test/test_pair.cpp test/test_algorithm.cpp test/test_reverse_iterator.cpp \
+				test/test_set.cpp
+
 OBJS 		= $(SRCS:.cpp=.o)
 
 define run_ft

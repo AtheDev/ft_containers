@@ -21,6 +21,7 @@
 #include "../includes/vector.hpp"
 #include "../includes/map.hpp"
 #include "../includes/stack.hpp"
+#include "../includes/set.hpp"
 
 #include "../includes/algorithm.hpp"
 #include "../includes/type_traits.hpp"
@@ -55,5 +56,6 @@ void	testMap(void);
 void	testPair(void);
 void	testAlgorithm(void);
 void    testReverseIerator(void);
+void	testSet(void);
 
 #endif
