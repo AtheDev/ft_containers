@@ -13,9 +13,9 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-//#include <iostream>
+#include <iostream>
 #include "type_traits.hpp"
-//#include "iterator.hpp"
+#include "iterator.hpp"
 #include "random_access_iterator.hpp"
 #include "algorithm.hpp"
 
@@ -70,14 +70,13 @@ namespace   ft
             vector(const vector<T, Alloc> & x) {
 
                 _alloc = x._alloc;
-                _capacity = x._capacity;
+                _capacity = x._size;
                 _size = x._size;
                 _v = _alloc.allocate(_capacity);
                 size_t  i = 0;
                 for (const_iterator it = x.begin(); it != x.end(); it++, i++)
                     _alloc.construct(_v + i, *it);
             }
-
             ~vector() {
 
                 clear();
@@ -90,13 +89,15 @@ namespace   ft
 
                 if (this != &x)
                 {
-                    for (size_t i = 0; i < _size; i++)
-                        _alloc.destroy(_v + i);
+                    clear();
                     if (_capacity < x._capacity)
                     {
-                        _alloc.deallocate(_v, _capacity);
-                        _v = _alloc.allocate(x._capacity);
-                        _capacity = x._capacity;
+                        if (_capacity < x._size)
+                        {
+                            _alloc.deallocate(_v, _capacity);
+                            _capacity = (_capacity == 0 ? x._size : x._capacity);
+                            _v = _alloc.allocate(x._capacity);
+                        }
                     }
                     size_t  i = 0;
                     for (const_iterator it = x.begin(); it != x.end(); it++, i++)
@@ -105,7 +106,6 @@ namespace   ft
                 }
                 return *this;
             }
-
         // Iterator
 
             iterator                begin()         { return iterator(_v); }
@@ -143,7 +143,7 @@ namespace   ft
                     else if (n > _size)
                     {
                         if (n > _capacity)
-                            reserve(n);
+                            reserve(n <= (_size *2) ? _size *2 : n);
                         for (size_t i = _size; i < n; i++)
                             _alloc.construct(_v + i, val);
                         _size = n;
@@ -158,7 +158,7 @@ namespace   ft
             void                    reserve(size_type n) {
 
                 if (n > max_size())
-                    throw std::length_error("vector::reserve n > this->max_size()");
+                    throw std::length_error("vector::reserve");
                 else if (n > capacity())
                 {
                     T * ptrTmp = _v;
@@ -209,32 +209,21 @@ namespace   ft
 
                 if (i > _capacity)
                     reserve(i);
-                //if (_size >= i)
-                    for (size_t j = 0; j < _size; j++)
-                        _alloc.destroy(_v + j);
-                //else if (_size < i)
-                    //for (size_t j = 0; j < _size; j++)
-                       // _alloc.destroy(_v + j);
+                clear();
                 for (size_t j = 0; first != last; first++, j++)
                     _alloc.construct(_v + j, *first);
                 _size = i;
             }
-//A voir si faire comme au dessus
+
             void                    assign(size_type n, const value_type & val) {
 
                 if (n > _capacity)
                     reserve(n);
-                if (_size >= n)
-                    for (size_t j = 0; j < n; j++)
-                        _alloc.destroy(_v + j);
-                else if (_size < n)
-                    for (size_t j = 0; j < _size; j++)
-                        _alloc.destroy(_v + j);
+                clear();
                 for (size_t j = 0; j < n; j++)
                     _alloc.construct(_v + j, val);
                 _size = n;                
             }
-
             void                    push_back(const value_type & val) {
 
                 if (_size == _capacity)
@@ -258,19 +247,21 @@ namespace   ft
 
             void                    insert(iterator position, size_t n, const value_type & val) {
 
-                size_t  n_end = ft::distance(position, end());
-                if (_size + n > _capacity)
-                    while (_size + n > _capacity)
-                        reserve(_size != 0 ? _capacity * 2 : n*2);
-                size_t i = 0;
-                for (; i < n_end; i++)
+                if (n != 0)
                 {
-                    _alloc.construct(_v + _size + n - i - 1, *(_v + _size - i - 1));
-                    _alloc.destroy(_v + _size - i - 1);
+                    size_t  n_end = ft::distance(position, end());
+                    if (_size + n > _capacity)
+                        reserve((_size + n) <= (_size *2) ? _size *2 : n + _size);
+                    size_t i = 0;
+                    for (; i < n_end; i++)
+                    {
+                        _alloc.construct(_v + _size + n - i - 1, *(_v + _size - i - 1));
+                        _alloc.destroy(_v + _size - i - 1);
+                    }
+                    for (size_t j = 0; j < n; j++)
+                        _alloc.construct(_v + _size - i + j, val);
+                    _size += n;
                 }
-                for (size_t j = 0; j < n; j++)
-                    _alloc.construct(_v + _size - i + j, val);
-                _size += n;
             }
 
             template<class InputIterator>
@@ -279,21 +270,23 @@ namespace   ft
 
                 size_t n = ft::distance(first, last);
                 size_t  n_end = ft::distance(position, end());
-                if (_size + n > _capacity)
-                    while (_size + n > _capacity)
-                        reserve(_size != 0 ? _capacity * 2 : n*2);
-                size_t i = 0;
-                for (; i < n_end; i++)
+                if (n != 0)
                 {
-                    _alloc.construct(_v + _size + n - i - 1, *(_v + _size - i - 1));
-                    _alloc.destroy(_v + _size - i - 1);
+                    if (_size + n > _capacity)
+                        reserve((_size + n) <= (_size *2) ? _size *2 : n + _size);
+                    size_t i = 0;
+                    for (; i < n_end; i++)
+                    {
+                        _alloc.construct(_v + _size + n - i - 1, *(_v + _size - i - 1));
+                        _alloc.destroy(_v + _size - i - 1);
+                    }
+                    for (size_t j = 0; j < n; j++)
+                    {
+                        _alloc.construct(_v + _size - i + j, *first);
+                        first++;
+                    }
+                    _size += n;
                 }
-                for (size_t j = 0; j < n; j++)
-                {
-                    _alloc.construct(_v + _size - i + j, *first);
-                    first++;
-                }
-                _size += n;
             }
 
             iterator                erase(iterator position) {
@@ -302,19 +295,18 @@ namespace   ft
                 if (position != end())
                 {
                     iterator tmp = position;
-                    _alloc.destroy(&(*tmp));
-                    pointer ptr = &(*(tmp++));
-                    ret = ptr;
-                    while (tmp != end())
+                    pointer ptr = &(*(tmp + 1));
+                    ret = &(*position);
+                    while (tmp != (end() - 1))
                     {
-                        _alloc.construct(ptr, *tmp);
-                        ptr = &(*(tmp++));
+                        *tmp = *ptr;
+                        ptr++;
+                        tmp++;
                     }
                     pop_back();
                 }
                 return iterator(ret);
             }
-
             iterator                erase(iterator first, iterator last) {
 
                 iterator    tmp = first;

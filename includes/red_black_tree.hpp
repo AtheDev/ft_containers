@@ -85,18 +85,6 @@ namespace   ft
                 _root = _sent;
             }
 
-            /*RedBlackTree(RedBlackTree const & cpy) {
-
-                _alloc = cpy._alloc;
-                _size = cpy._size;
-                _comp = cpy._comp;
-                _sent = _alloc.allocate(1);
-                _alloc.construct(_sent, node());
-                _sent->parent = _sent->left = _sent->right = _sent;
-                _root = _sent;
-                // FAIRE UNE COPIE
-            }*/
-
             ~RedBlackTree() {
             
                 clearRBT(_root);
@@ -105,23 +93,9 @@ namespace   ft
                 _alloc.deallocate(_sent, 1);
             }
 
-            /*RedBlackTree &  operator=(RedBlackTree const & rhs) {
+            node_ptr    getRoot(void) const { return _root; }
 
-                if (_root != _sent)
-                    clearRBT(_root);
-                copyRBT(rhs);
-            }*/
-
-
-            node_ptr    getRoot(void) const {
-
-                return _root;
-            }
-
-            node_ptr    getSent(void) const {
-
-                return _sent;
-            }
+            node_ptr    getSent(void) const { return _sent; }
 
 
             node_ptr    createNewNode(const_reference val) {
@@ -154,21 +128,11 @@ namespace   ft
                 return tmp;
             }
 
+            bool                      empty() const { return (_size == 0 ? true : false); }
 
-            bool                      empty() const {
+            size_type                 size() const { return (_size); }
 
-                return (_size == 0 ? true : false);
-            }
-
-            size_type                 size() const {
-
-                return (_size);
-            }
-
-            size_type                 max_size() const {
-
-                return (_alloc.max_size());
-            }
+            size_type                 max_size() const { return (_alloc.max_size()); }
 
             ft::pair<node_ptr, bool>    insert(const value_type & val) {
 
@@ -216,8 +180,7 @@ namespace   ft
                     insert(*first);
             }
 
-            bool                      erase(node_ptr node)
-            {
+            bool                      erase(node_ptr node) {
 
                 node_ptr    tmp_null = _sent;
                 node_ptr    tmp_root = _root;
@@ -267,7 +230,7 @@ namespace   ft
                 }
                 destroyNode(tmp_null);
                 _size--;
-                if (node->left != _sent && node->right != _sent && tmp_color == BLACK)
+                if (x->left != _sent && x->right != _sent && tmp_color == BLACK)
                     rebalance_delete(x);
                 return true;
             }
@@ -356,7 +319,7 @@ namespace   ft
 
                 node_ptr tmp;
 
-                while (newNode->parent->color == RED)
+                while (newNode != _root && newNode->color == BLACK)
                 {
                     if (newNode->parent == newNode->parent->parent->right)
                     {

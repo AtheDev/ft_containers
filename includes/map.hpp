@@ -13,11 +13,12 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-//#include <iostream>
+#include <iostream>
 #include "red_black_tree.hpp"
 #include "bidirectional_iterator.hpp"
 #include "algorithm.hpp"
-//#include <functional>
+#include <functional>
+#include <memory>
 
 namespace   ft
 {

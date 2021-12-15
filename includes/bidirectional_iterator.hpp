@@ -19,7 +19,7 @@
 namespace   ft
 {
     template<typename T, class N>
-    struct  bidirectional_iterator : public iterator<ft::bidirectional_iterator_tag, T> {//public ft::bidirectional_iterator_tag {
+    struct  bidirectional_iterator : public iterator<ft::bidirectional_iterator_tag, T> {
 
     	typedef N                                       node_type;
     	typedef N *                                     node_ptr;
@@ -29,7 +29,6 @@ namespace   ft
     	typedef const T*                                const_pointer;
     	typedef T &                                     reference;
     	typedef const T &                               const_reference;
-    	//typedef typename pair_type::difference_type   difference_type;
         typedef typename ft::bidirectional_iterator_tag iterator_category;
         typedef bidirectional_iterator<T, N>            self;
 
@@ -168,11 +167,11 @@ namespace   ft
            return lhs._it != rhs._it;
         }
 
-    template <class Iterator1, class Iterator2, class Node>
-    friend bool operator==(ft::bidirectional_iterator<Iterator1, Node> const & lhs, ft::bidirectional_iterator<Iterator2, Node> const & rhs);
+        template <class Iterator1, class Iterator2, class Node>
+        friend bool operator==(ft::bidirectional_iterator<Iterator1, Node> const & lhs, ft::bidirectional_iterator<Iterator2, Node> const & rhs);
 
-    template <class Iterator1, class Iterator2, class Node>
-    friend bool operator!=(ft::bidirectional_iterator<Iterator1, Node> const & lhs, ft::bidirectional_iterator<Iterator2, Node> const & rhs);
+        template <class Iterator1, class Iterator2, class Node>
+        friend bool operator!=(ft::bidirectional_iterator<Iterator1, Node> const & lhs, ft::bidirectional_iterator<Iterator2, Node> const & rhs);
 
 
         private:
@@ -211,6 +210,5 @@ namespace   ft
         return (lhs._it != rhs._it);
     }
 }
-
 
 #endif
