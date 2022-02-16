@@ -13,10 +13,11 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-#include <iostream>
 #include "red_black_tree.hpp"
 #include "bidirectional_iterator.hpp"
+#include "iterator.hpp"
 #include "algorithm.hpp"
+#include "utility.hpp"
 #include <functional>
 #include <memory>
 
@@ -55,8 +56,6 @@ namespace   ft
                         return key_compare()(x.first, y.first);
                     }
 
-                    value_compare &operator=(const value_compare &) { return *this; }
-
                 protected:
 
                     Compare     comp;
@@ -71,7 +70,7 @@ namespace   ft
         public:
 
             typedef typename ft::bidirectional_iterator<value_type, node_type >             iterator;
-            typedef typename ft::bidirectional_iterator<const value_type, const node_type>  const_iterator;
+            typedef typename ft::bidirectional_iterator_const<value_type, node_type>        const_iterator;
             typedef ft::reverse_iterator<iterator>                                          reverse_iterator;
             typedef ft::reverse_iterator<const_iterator>                                    const_reverse_iterator;
 
@@ -309,14 +308,14 @@ namespace   ft
             friend bool    operator<( const map<_Key, _T, _Compare, _Alloc> & lhs,
                     const map<_Key, _T, _Compare, _Alloc> & rhs );
 
+
         private:
-
-
 
             allocator_type  _alloc;
             key_compare     _key_comp;
             value_compare   _value_comp;
             RBT             _tree;
+
 
     };
 

@@ -13,6 +13,8 @@
 #ifndef ITERATOR_H
 # define ITERATOR_H
 
+#include <cstddef>
+
 namespace   ft
 {
 /* Classe vide pour identifier la catégorie d'un itérateur */
@@ -20,7 +22,7 @@ namespace   ft
 	struct	output_iterator_tag {};
 	struct	forward_iterator_tag : public input_iterator_tag {};
 	struct	bidirectional_iterator_tag : public forward_iterator_tag {};
-    struct	random_access_iterator_tag : public bidirectional_iterator_tag {};
+    struct  random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 /* Classe de traits qui définit les propriétés des itérateurs,
 permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
@@ -70,17 +72,17 @@ permet d'accéder aux types sans avoir de souci si c'est un pointeur ou pas */
 
 
 /* Classe qui inverse le sens dans lequel un itérateur bidirectionnel ou à accès aléatoire parcourt une plage*/
-    template<class T>
+    template<class Iterator>
     class   reverse_iterator
     {
         public:
 
-            typedef T                                                       iterator_type;
-            typedef typename    ft::iterator_traits<T>::difference_type     difference_type;
-            typedef typename    ft::iterator_traits<T>::value_type          value_type;
-            typedef typename    ft::iterator_traits<T>::pointer             pointer;
-            typedef typename    ft::iterator_traits<T>::reference           reference;
-            typedef typename    ft::iterator_traits<T>::iterator_category   iterator_category;
+            typedef Iterator                                                       iterator_type;
+            typedef typename    ft::iterator_traits<Iterator>::difference_type     difference_type;
+            typedef typename    ft::iterator_traits<Iterator>::value_type          value_type;
+            typedef typename    ft::iterator_traits<Iterator>::pointer             pointer;
+            typedef typename    ft::iterator_traits<Iterator>::reference           reference;
+            typedef typename    ft::iterator_traits<Iterator>::iterator_category   iterator_category;
 
             reverse_iterator() : _it() {}
 

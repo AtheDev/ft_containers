@@ -13,11 +13,12 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <iostream>
 #include "type_traits.hpp"
 #include "iterator.hpp"
 #include "random_access_iterator.hpp"
 #include "algorithm.hpp"
+#include <sstream>
+#include <memory>
 
 namespace   ft
 {
@@ -85,7 +86,7 @@ namespace   ft
                 _capacity = 0;
             }
 
-            vector<T, Alloc> &  operator=(const vector<T, Alloc> & x) {
+            vector &  operator=(const vector & x) {
 
                 if (this != &x)
                 {
@@ -181,14 +182,22 @@ namespace   ft
             reference               at(size_type n) {
 
                 if (n >= _size)
-                    throw std::out_of_range("vector::at n >= this->size()");
+                {
+                    std::stringstream err;
+                    err<< "vector::_M_range_check: __n (which is " << n << ") >= this->size() (which is " << size() << ")";
+                    throw std::out_of_range(err.str());
+                }
                 return operator[](n);
             }
 
             const_reference         at(size_type n) const {
 
                 if (n >= _size)
-                    throw std::out_of_range("vector::at n >= this->size()");
+                {
+                    std::stringstream err;
+                    err<< "vector::_M_range_check: __n (which is " << n << ") >= this->size() (which is " << size() << ")";
+                    throw std::out_of_range(err.str());
+                }
                 return operator[](n);
             }
 
@@ -325,7 +334,7 @@ namespace   ft
                 return tmp;
             }
 
-            void                    swap(vector<T, Alloc> & x) {
+            void                    swap(vector & x) {
 
                 pointer         tmp_v = x._v;
                 size_type       tmp_size = x._size;

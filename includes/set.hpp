@@ -13,12 +13,13 @@
 #ifndef SET_HPP
 # define SET_HPP
 
-#include <iostream>
-#include "red_black_tree.hpp"
-#include "bidirectional_iterator.hpp"
-#include "algorithm.hpp"
 #include <functional>
 #include <memory>
+#include "red_black_tree.hpp"
+#include "bidirectional_iterator.hpp"
+#include "iterator.hpp"
+#include "algorithm.hpp"
+#include "utility.hpp"
 
 namespace   ft
 {
@@ -32,7 +33,6 @@ namespace   ft
             typedef Compare                                         key_compare;
             typedef Compare                                         value_compare;
             typedef Alloc                                           allocator_type;
-            //typedef ft::pair<const Key, T>                          value_type;
 
             typedef size_t                                          size_type;
             typedef std::ptrdiff_t                                  difference_type;
@@ -52,8 +52,8 @@ namespace   ft
 
         public:
 
-            typedef typename ft::bidirectional_iterator<value_type, node_type >             iterator;
-            typedef typename ft::bidirectional_iterator<const value_type, const node_type>  const_iterator;
+            typedef typename ft::bidirectional_iterator_const<value_type, node_type>        iterator;
+            typedef typename ft::bidirectional_iterator_const<value_type, node_type>        const_iterator;
             typedef ft::reverse_iterator<iterator>                                          reverse_iterator;
             typedef ft::reverse_iterator<const_iterator>                                    const_reverse_iterator;
 
@@ -111,16 +111,6 @@ namespace   ft
 
             size_type               max_size() const    { return (_tree.max_size()); }
 
-           /* mapped_type &           operator[] (const key_type & k) {
-
-                iterator    tmp = lower_bound(k);
-                ft::pair<key_type, mapped_type> p = ft::make_pair(k, mapped_type());
-                if (tmp == end() || _value_comp(p, tmp.node()->value))
-                    tmp = insert(tmp, value_type(k, mapped_type()));
-                return (tmp->second);
-            }*/
-
-
             ft::pair<iterator,bool> insert(const value_type & val) {
 
                 ft::pair<node_ptr, bool> tmp = _tree.insert(val);
@@ -143,13 +133,12 @@ namespace   ft
 
             void                    erase(iterator position) {
 
-                _tree.erase(position.node());
+                _tree.erase(*position);
             }
 
             size_type               erase(const value_type & k) {
 
-                iterator    position = find(k);
-                bool        ret = _tree.erase(position.node());
+                bool        ret = _tree.erase(k);
                 return (ret == false ? 0 : 1);
             }
 
@@ -169,24 +158,9 @@ namespace   ft
 
             value_compare           value_comp() const { return _key_comp; }
 
-
-           /* iterator                find(const key_type & k) {
-
-                iterator tmp = lower_bound(k);
-                ft::pair<key_type, mapped_type> p = ft::make_pair(k, mapped_type());
-                if (tmp == end() || _value_comp(p, tmp.node()->value))
-                    return end();
-                return (tmp);
-            }
-*/
             iterator                find(const value_type & k) const {
 
-                //iterator tmp = lower_bound(k);
-               // iterator tmp = end();
-               node_ptr ptr = end().node();
-                //ft::pair<key_type, value_type> p = ft::make_pair(k, value_type());
-                if (/*tmp*/lower_bound(k) == end() || value_compare()(k, /*tmp*/lower_bound(k).node()->value))
-                    return (end());
+                node_ptr ptr = _tree.searchValue(k);
                 return iterator(ptr, _tree.getSent(), _tree.getRoot());
             }
 
@@ -197,8 +171,6 @@ namespace   ft
 
                 node_ptr x = _tree.getRoot();
                 node_ptr y =  _tree.getSent();
-
-                //ft::pair<key_type, value_type> p = ft::make_pair(k, value_type());
 
                 while (x != _tree.getSent())
                 {
@@ -213,32 +185,10 @@ namespace   ft
                 return iterator(y, _tree.getSent(), _tree.getRoot());
             }
 
-/*            const_iterator          lower_bound(const key_type & k) const {
-
-                node_ptr x = _tree.getRoot();
-                node_ptr y =  _tree.getSent();
-
-                ft::pair<key_type, mapped_type> p = ft::make_pair(k, mapped_type());
-
-                while (x != _tree.getSent())
-                {
-                    if (!_value_comp(x->value, p))
-                    {
-                        y = x;
-                        x = x->left;
-                    }
-                    else
-                        x = x->right;
-                }
-                return const_iterator(y, _tree.getSent(), _tree.getRoot());
-            }
-*/
             iterator                upper_bound(const value_type & k) const {
 
                 node_ptr x = _tree.getRoot();
                 node_ptr y =  _tree.getSent();
-
-                //ft::pair<key_type, value_type> p = ft::make_pair(k, value_type());
 
                 while (x != _tree.getSent())
                 {
@@ -253,36 +203,11 @@ namespace   ft
                 return iterator(y, _tree.getSent(), _tree.getRoot());
             }
 
-/*            const_iterator          upper_bound(const key_type & k) const {
-
-                node_ptr x = _tree.getRoot();
-                node_ptr y =  _tree.getSent();
-
-                ft::pair<key_type, mapped_type> p = ft::make_pair(k, mapped_type());
-
-                while (x != _tree.getSent())
-                {
-                    if (_value_comp(p, x->value))
-                    {
-                        y = x;
-                        x = x->left;
-                    }
-                    else
-                        x = x->right;
-                }
-                return const_iterator(y, _tree.getSent(), _tree.getRoot());
-            }
-*/
             pair<iterator, iterator>                 equal_range(const key_type & k) const {
 
                 return ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k));  
             }
 
- /*           pair<const_iterator, const_iterator>     equal_range(const key_type & k) const {
-
-                return ft::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
-            }
-*/
             allocator_type  get_allocator() const { return allocator_type(); }
 
             template<class _T, class _Compare, class _Alloc>
@@ -295,11 +220,8 @@ namespace   ft
 
         private:
 
-
-
             allocator_type  _alloc;
             key_compare     _key_comp;
-            //value_compare   _value_comp;
             RBT             _tree;
 
     };

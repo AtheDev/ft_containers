@@ -13,8 +13,8 @@
 #ifndef RED_BLACK_TREE_HPP
 # define RED_BLACK_TREE_HPP
 
-#include <iostream>
 #include "utility.hpp"
+#include <memory>
 
 enum color {BLACK = 0, RED};
 
@@ -97,7 +97,6 @@ namespace   ft
 
             node_ptr    getSent(void) const { return _sent; }
 
-
             node_ptr    createNewNode(const_reference val) {
 
                 node_ptr newNode = _alloc.allocate(1);
@@ -118,13 +117,6 @@ namespace   ft
 
                 while(tmp->left != _sent)
                     tmp = tmp->left;
-                return tmp;
-            }
-
-            node_ptr    maximum(node_ptr tmp) const{
-
-                while(tmp->right != _sent)
-                    tmp = tmp->right;
                 return tmp;
             }
 
@@ -197,6 +189,63 @@ namespace   ft
                         tmp_root = tmp_root->right;
                 }
                 if (tmp_null == _sent)
+                {
+                    return false;
+                }
+                y = tmp_null;
+                int tmp_color = y->color;
+                if (tmp_null->left == _sent)
+                {
+                    x = tmp_null->right;
+                    transplant(tmp_null, tmp_null->right);
+                }
+                else if (tmp_null->right == _sent)
+                {
+                    x = tmp_null->left;
+                    transplant(tmp_null, tmp_null->left);
+                }
+                else
+                {
+                    y = minimum(tmp_null->right);
+                    tmp_color = y->color;
+                    x = y->right;
+                    if (y->parent == tmp_null)
+                        x->parent = y;
+                    else
+                    {
+                        transplant(y, y->right);
+                        y->right = tmp_null->right;
+                        y->right->parent = y;
+                    }
+                    transplant(tmp_null, y);
+                    y->left = tmp_null->left;
+                    y->left->parent = y;
+                    y->color = tmp_null->color;
+                }
+                destroyNode(tmp_null);
+                _size--;
+                if (tmp_color == BLACK)
+                    rebalance_delete(x);
+                return true;
+            }
+
+            bool                    erase(const value_type & k) {
+
+                node_ptr    tmp_null = _sent;
+                node_ptr    tmp_root = _root;
+                node_ptr    x;
+                node_ptr    y;
+
+                while (tmp_root != _sent)
+                {
+                    if (tmp_root->value == k)
+                        tmp_null = tmp_root;
+                    if (_comp(k, tmp_root->value))
+                        tmp_root = tmp_root->left;
+                    else
+                        tmp_root = tmp_root->right;
+                }
+                if (tmp_null == _sent)
                     return false;
                 y = tmp_null;
                 int tmp_color = y->color;
@@ -230,9 +279,26 @@ namespace   ft
                 }
                 destroyNode(tmp_null);
                 _size--;
-                if (x->left != _sent && x->right != _sent && tmp_color == BLACK)
+                if (tmp_color == BLACK)
                     rebalance_delete(x);
                 return true;
+            }
+
+            node_ptr        searchValue(const value_type & k) const
+            {
+                node_ptr    tmp_null = _sent;
+                node_ptr    tmp_root = _root;
+
+                while (tmp_root != _sent)
+                {
+                    if (tmp_root->value == k)
+                        tmp_null = tmp_root;
+                    if (_comp(k, tmp_root->value))
+                        tmp_root = tmp_root->left;
+                    else
+                        tmp_root = tmp_root->right;
+                }
+                return tmp_null;
             }
 
             void                      swap(RedBlackTree & tree) {
@@ -319,7 +385,7 @@ namespace   ft
 
                 node_ptr tmp;
 
-                while (newNode != _root && newNode->color == BLACK)
+                while (newNode != _root && newNode->parent->color == RED)
                 {
                     if (newNode->parent == newNode->parent->parent->right)
                     {
@@ -403,6 +469,7 @@ namespace   ft
                         {
                             s->color = RED;
                             node = node->parent;
+                            
                         }
                         else
                         {
@@ -432,7 +499,7 @@ namespace   ft
                             s = node->parent->left;
                         }
 
-                        if (s->right->color == BLACK && s->right->color == BLACK)
+                        if (s->left->color == BLACK && s->right->color == BLACK)
                         {
                             s->color = RED;
                             node = node->parent;

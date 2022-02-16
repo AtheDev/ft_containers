@@ -30,6 +30,10 @@ namespace   ft
 
             explicit stack(const container_type& ctnr = container_type()): c(ctnr) {}
 
+            stack(const stack & other): c(other.c) {}
+
+            ~stack(void) {}
+
             stack &     operator=(const stack & other) {
 
                 if (this != &other)
