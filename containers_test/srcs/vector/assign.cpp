@@ -8,7 +8,7 @@ int		main(void)
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_two(4);
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_three;
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_four;
-    std::cout << vct.max_size() << std::endl;
+
 	for (unsigned long int i = 0; i < vct.size(); ++i)
 		vct[i] = (vct.size() - i) * 3;
 	for (unsigned long int i = 0; i < vct_two.size(); ++i)

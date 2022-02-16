@@ -12,7 +12,6 @@ int		main(void)
 	for (int i = 0; i < size; ++i)
 		it[i] = (size - i) * 5;
 
-it = vct.rbegin();
 	it = it + 5;
 	it = 1 + it;
 	it = it - 4;

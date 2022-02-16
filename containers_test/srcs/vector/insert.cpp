@@ -25,7 +25,6 @@ int		main(void)
 
 	vct2.insert(vct2.end(), 42);
 	vct2.insert(vct2.begin(), 2, 21);
-
 	printSize(vct2);
 
 	vct2.insert(vct2.end() - 2, 42);
