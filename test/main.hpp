@@ -17,6 +17,8 @@
 #include <vector>
 #include <map>
 #include <stack>
+#include <set>
+#include <deque>
 
 #include "../includes/vector.hpp"
 #include "../includes/map.hpp"
@@ -30,10 +32,6 @@
 #include "../includes/utility.hpp"
 #include "../includes/random_access_iterator.hpp"
 #include "../includes/bidirectional_iterator.hpp"
-
-#ifndef TESTED_NAMESPACE
-    # define TESTED_NAMESPACE  std
-#endif
 
     template<class T>
     class test {
@@ -57,5 +55,6 @@ void	testPair(void);
 void	testAlgorithm(void);
 void    testReverseIerator(void);
 void	testSet(void);
+void	testSubject(void);
 
 #endif

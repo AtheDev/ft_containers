@@ -89,8 +89,6 @@ static void     _constructor(void)
     std::cout << "vect4 :" << std::endl;
     printContent(vect4);
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _assign(void)
@@ -147,8 +145,6 @@ static void    _assign(void)
     std::cout << std::endl;
     printContent(vect5);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _at(void)
@@ -191,8 +187,6 @@ static void    _at(void)
         std::cout << e.what() << std::endl;
     }
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _begin_end(void)
@@ -237,8 +231,6 @@ static void    _begin_end(void)
     std::cout << "*it = " << *it << std::endl;
     std::cout << "*c_it = " << *c_it << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _capacity(void)
@@ -312,8 +304,6 @@ static void    _capacity(void)
     std::cout << std::endl;
     std::cout << "vect3.capacity() = " << vect3.capacity() << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _clear(void)
@@ -358,8 +348,6 @@ static void    _clear(void)
     std::cout << std::endl;
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _empty(void)
@@ -390,8 +378,6 @@ static void    _empty(void)
     std::cout << "vect3.empty() = " << vect3.empty() << std::endl;
     std::cout << "vect4.empty() = " << vect4.empty() << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _erase(void)
@@ -422,8 +408,6 @@ static void    _erase(void)
     std::cout << std::endl;
     printContent(vect1);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _front_back(void)
@@ -469,8 +453,6 @@ static void    _front_back(void)
     vect1.front() -= vect1.back();
     std::cout << "new vect1.front() = " << vect1.front() << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get(); 
 }
 
 static void    _get_allocator(void)
@@ -486,8 +468,6 @@ static void    _get_allocator(void)
     alloc.destroy(test);
     alloc.deallocate(test, 1);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _insert(void)
@@ -537,8 +517,6 @@ static void    _insert(void)
     std::cout << std::endl;
     printContent(vect1);  
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _max_size(void)
@@ -565,8 +543,6 @@ static void    _max_size(void)
     NS::vector<test<int> > vect4;
     printVector(vect4, "vect 4");
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _operator_assignation(void)
@@ -597,8 +573,6 @@ static void    _operator_assignation(void)
     std::cout << std::endl;
     printContent(vect2);  
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _operator_access(void)
@@ -623,8 +597,6 @@ static void    _operator_access(void)
     for (size_t i = 0; i < vect2.size(); i++)
         std::cout << "vect2[" << i << "] = " << vect2[i] << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _pop_back(void)
@@ -662,8 +634,6 @@ static void    _pop_back(void)
     std::cout << std::endl;
     printVector(vect3, "vect 3");
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _push_back(void)
@@ -702,9 +672,7 @@ static void    _push_back(void)
     printVector(vect3, "vect 3");
     std::cout << std::endl;
     printVector(vect4, "vect 4");
-    std::cout << std::endl << std::endl;
-
-    //std::cin.get();
+    std::cout << std::endl << std::endl;   
 }
 
 static void    _rbegin_rend(void)
@@ -749,8 +717,6 @@ static void    _rbegin_rend(void)
     std::cout << "*r_it = " << *r_it << std::endl;
     std::cout << "*c_r_it = " << *c_r_it << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _reserve(void)
@@ -802,8 +768,6 @@ static void    _reserve(void)
     std::cout << std::endl;
     printVector(vect4, "vect 4");
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _resize(void)
@@ -833,8 +797,6 @@ static void    _resize(void)
     std::cout << "==> After resize(100000) :" << std::endl;
     printVector(vect1, "vect 1");
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _size(void)
@@ -884,8 +846,6 @@ static void    _size(void)
     std::cout << std::endl;
     std::cout << "vect3.size() = " << vect3.size() << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _swap(void)
@@ -933,8 +893,6 @@ static void    _swap(void)
 	std::cout << "Iterator validity:" << std::endl;
 	std::cout << "it1 == vect2.begin() : " << (it1 == vect2.begin()) << std::endl;
 	std::cout << "it2 == vect1.begin() : " << (it2 == vect1.begin()) << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _relational_operators(void)
@@ -994,8 +952,6 @@ static void    _relational_operators(void)
     if (vect3 >= vect2)  
         std::cout << "vect3 >= vect2" << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 void    testVector(void)

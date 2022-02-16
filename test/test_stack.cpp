@@ -41,6 +41,45 @@ static void    printContent(NS::stack<T, C> & stack)
     std::cout << "--------------------------------------" << std::endl;
 }
 
+static void     _constructor(void)
+{
+    std::cout << "===== TEST CONSTRUCTOR() =====" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "set1 default constructor:" << std::endl;
+    NS::stack<int, NS::vector<int> >    set1;
+
+    for (int i = 0; i < 10; i++)
+        set1.push(i * 2);
+    std::cout << std::endl;
+
+    std::cout << "set2 copy constructor:" << std::endl;
+    NS::stack<int, NS::vector<int> >    set2(set1);
+    std::cout << "vect1 :" << std::endl;
+    printContent(set1);
+    std::cout << std::endl;
+    std::cout << "vect2 :" << std::endl;
+    printContent(set2);
+    std::cout << std::endl;
+
+    for (int i = 20; i < 30; i++)
+        set2.push(i * 2);
+
+    std::cout << "set3 assignation:" << std::endl;
+    NS::stack<int, NS::vector<int> >    set3;
+    set3 = set2;
+    set2 = NS::stack<int, NS::vector<int> >();
+    std::cout << "set1 :" << std::endl;
+    printContent(set1);
+    std::cout << std::endl;
+    std::cout << "set2 :" << std::endl;
+    printContent(set2);
+    std::cout << std::endl;
+    std::cout << "set3 :" << std::endl;
+    printContent(set3);
+    std::cout << std::endl << std::endl;
+}
+
 static void    _empty(void)
 {
     std::cout << "===== TEST EMPTY() =====" << std::endl;
@@ -64,8 +103,6 @@ static void    _empty(void)
     std::cout << "==> After pop():" << std::endl;
     std::cout << "s1.empty() = " << s1.empty() << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get(); 
 }
 
 static void     _push_pop(void)
@@ -98,8 +135,6 @@ static void     _push_pop(void)
     std::cout << "==> After pop():" << std::endl;
     printStack(stack1, "stack 1");
     std::cout << std::endl << std::endl;
-
-    //std::cin.get(); 
 }
 
 static void     _size(void)
@@ -118,8 +153,6 @@ static void     _size(void)
     stack1.pop();
     std::cout << "2. size: " << stack1.size() << '\n';
     std::cout << std::endl << std::endl;
-
-    //std::cin.get(); 
 }
 
 static void     _top(void)
@@ -139,8 +172,6 @@ static void     _top(void)
     std::cout << "==> After top() - 5 :" << std::endl;
     std::cout << "stack1.top() = " << stack1.top() << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get(); 
 }
 
 static void    _relational_operators(void)
@@ -208,12 +239,11 @@ static void    _relational_operators(void)
     std::cout << "stack3" << std::endl;
     printContent(stack3);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 void    testStack(void)
 {
+    _constructor();
     _empty();
     _push_pop();
     _size();

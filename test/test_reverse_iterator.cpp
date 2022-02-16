@@ -190,5 +190,4 @@ void         testReverseIerator(void)
         std::cout << "const_rit1_v1 - 2 : " << (*const_rit1_v1 - 2) << std::endl;
         std::cout << std::endl;
     }
-
 }

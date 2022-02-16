@@ -77,8 +77,6 @@ static void     _constructor(void)
     std::cout << "map3 :" << std::endl;
     printContent(map3);
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void     _begin_end(void)
@@ -152,8 +150,6 @@ static void     _begin_end(void)
     std::cout << it->first << " | " << it->second << std::endl;
     std::cout << c_it->first << " | " << c_it->second << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _clear(void)
@@ -218,8 +214,6 @@ static void    _clear(void)
     std::cout << std::endl;
     printMap(map3, "map 3");
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _count(void)
@@ -265,8 +259,6 @@ static void    _count(void)
     for (char c = 'a'; c <= 'z'; c++)
         std::cout << "=> count(" << c << ") = " << map1.count(c) << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _empty(void)
@@ -326,9 +318,7 @@ static void    _empty(void)
     std::cout << "map1.empty() = " << map1.empty() << std::endl;
     std::cout << "map2.empty() = " << map2.empty() << std::endl;
     std::cout << "map3.empty() = " << map3.empty() << std::endl;
-    std::cout << std::endl << std::endl;
-
-    //std::cin.get();
+    std::cout << std::endl << std::endl; 
 }
 
 static void    _equal_range(void)
@@ -463,9 +453,7 @@ static void    _equal_range(void)
         std::cout << " = end()" << std::endl;
     else
         std::cout << pair2.second->first << " => " << pair2.second->second << std::endl;
-    std::cout << std::endl << std::endl;
-
-    //std::cin.get();
+    std::cout << std::endl << std::endl;   
 }
 
 static void     _erase(void)
@@ -507,8 +495,6 @@ static void     _erase(void)
     for (it = map1.begin(); it != map1.end(); ++it)
         std::cout << it->first << " => " << it->second << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void     _find(void)
@@ -550,8 +536,6 @@ static void     _find(void)
     for (char c = 'a'; c < 'h'; c++)
         std::cout << "map.find(" << c << ") => " << map2.find(c)->second << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _get_allocator(void)
@@ -567,8 +551,6 @@ static void    _get_allocator(void)
     map1.get_allocator().destroy(test);
     map1.get_allocator().deallocate(test, 1);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void     _insert(void)
@@ -610,8 +592,6 @@ static void     _insert(void)
     std::cout << std::endl;
     printContent(map2);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void     _key_compare(void)
@@ -635,8 +615,6 @@ static void     _key_compare(void)
         std::cout << it->first << " => " << it->second << std::endl;
     } while (compMap1((*it++).first, highest));
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void     _lower_upper_bound(void)
@@ -772,8 +750,6 @@ static void     _lower_upper_bound(void)
     printMap(map2, "map 2");
     printContent(map2);
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _max_size(void)
@@ -815,8 +791,6 @@ static void    _max_size(void)
     NS::map<test<int>, int> map5;
     printMap(map5, "map 5");
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _operator_assignation(void)
@@ -856,8 +830,6 @@ static void    _operator_assignation(void)
     std::cout << std::endl;
     printContent(map2);  
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _operator_access(void)
@@ -874,8 +846,6 @@ static void    _operator_access(void)
     for (size_t i = 0; i < map1.size(); i++)
         std::cout << "map1[" << i << "] = " << map1[i] << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _rbegin_rend(void)
@@ -915,8 +885,6 @@ static void    _rbegin_rend(void)
         r_it++;
     }
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _size(void)
@@ -967,8 +935,6 @@ static void    _size(void)
     std::cout << std::endl;
     std::cout << "map3.size() = " << map3.size() << std::endl;
     std::cout << std::endl << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _swap(void)
@@ -1033,8 +999,6 @@ static void    _swap(void)
 	std::cout << "Iterator validity:" << std::endl;
 	std::cout << "it1 == map2.begin() : " << (it1 == map2.begin()) << std::endl;
 	std::cout << "it2 == map1.begin() : " << (it2 == map1.begin()) << std::endl;
-
-    //std::cin.get();
 }
 
 static void     _value_compare(void)
@@ -1057,8 +1021,6 @@ static void     _value_compare(void)
         std::cout << it->first << " => " << it->second << std::endl;
     } while (map1.value_comp()(*it++, highest));
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 static void    _relational_operators(void)
@@ -1127,8 +1089,6 @@ static void    _relational_operators(void)
     if (map3 >= map2)  
         std::cout << "map3 >= map2" << std::endl;
     std::cout << std::endl;
-
-    //std::cin.get();
 }
 
 void    testMap(void)

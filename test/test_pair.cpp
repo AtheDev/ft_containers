@@ -44,7 +44,6 @@ static void     _constructor(void)
     std::cout << "Pair 2 : " << pair2.first << " ; " << pair2.second << std::endl;
     std::cout << "Pair 3 : " << pair3.first << " ; " << pair3.second << std::endl;
     std::cout << "Pair 4 : " << pair4.first << " ; " << pair4.second << std::endl;
-
 }
 
 static void    _relational_operators(void)

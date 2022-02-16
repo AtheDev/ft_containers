@@ -14,13 +14,14 @@
 
 int main()
 {
-    /*testVector();
+    testVector();
     testStack();
     testMap();
     testPair();
     testAlgorithm();
-    testReverseIerator();*/
+    testReverseIerator();
     testSet();
+    testSubject();
 
     return 0;
 }
